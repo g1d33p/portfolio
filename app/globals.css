@@ -58,21 +58,21 @@ body {
 .portrait-wrap {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 535px;
   overflow: hidden;
-  border-radius: 40px;
+  border-radius: 10px;
 
   /* Stronger edge fade so borders melt away */
   -webkit-mask-image: radial-gradient(
     ellipse at center,
-    #000 55%,
+    #000 15%,
     rgba(0,0,0,0.85) 65%,
     rgba(0,0,0,0.55) 75%,
     transparent 92%
   );
   mask-image: radial-gradient(
     ellipse at center,
-    #000 55%,
+    #000 15%,
     rgba(0,0,0,0.85) 65%,
     rgba(0,0,0,0.55) 75%,
     transparent 92%
