@@ -4,91 +4,88 @@
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#0B0F14] text-white">
-      {/* HERO SECTION */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
-          {/* LEFT: Copy */}
-          <div>
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-                AI Product / Project Management
-              </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-                Systems Thinking • Delivery • Stakeholders
-              </span>
-            </div>
+{/* HERO SECTION */}
+<section className="mx-auto max-w-6xl px-6 py-20">
+  <div className="grid gap-10 md:grid-cols-2 md:items-center">
+    {/* LEFT: Copy */}
+    <div>
+      <div className="flex flex-wrap gap-2">
+        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
+          AI Product / Project Management
+        </span>
+        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
+          Systems Thinking • Delivery • Stakeholders
+        </span>
+      </div>
 
-            <h1 className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
-              I ship AI & analytics work that{" "}
-              <span className="text-white/70">changes decisions</span>, not just
-              dashboards.
-            </h1>
+      <h1 className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
+        I ship AI & analytics work that{" "}
+        <span className="text-white/70">changes decisions</span>, not just
+        dashboards.
+      </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
-              I frame messy problems, align stakeholders, and turn technical work
-              into measurable outcomes — with a PMP mindset for risk, scope, and
-              delivery.
-            </p>
+      <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
+        I frame messy problems, align stakeholders, and turn technical work into
+        measurable outcomes — with a PMP mindset for risk, scope, and delivery.
+      </p>
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href="/projects"
-                className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black hover:opacity-90"
-              >
-                View Case Studies
-              </a>
-              <a
-                href="/#contact"
-                className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-              >
-                Contact
-              </a>
-              <a
-                href="/resume.pdf"
-                className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-              >
-                Resume
-              </a>
-            </div>
+      <div className="mt-10 flex flex-wrap gap-3">
+        <a
+          href="/projects"
+          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black hover:opacity-90"
+        >
+          View Case Studies
+        </a>
+        <a
+          href="/#contact"
+          className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+        >
+          Contact
+        </a>
+        <a
+          href="/resume.pdf"
+          className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+        >
+          Resume
+        </a>
+      </div>
 
-            {/* Quick metrics */}
-            <div className="mt-10 grid grid-cols-3 gap-3">
-              <Metric label="Focus" value="AI delivery" />
-              <Metric label="Style" value="PM mindset" />
-              <Metric label="Strength" value="Story + execution" />
-            </div>
-          </div>
+      {/* Quick metrics */}
+      <div className="mt-10 grid grid-cols-3 gap-3">
+        <Metric label="Focus" value="AI delivery" />
+        <Metric label="Style" value="PM mindset" />
+        <Metric label="Strength" value="Story + execution" />
+      </div>
+    </div>
 
-          {/* RIGHT: Floating Portrait (no box) */}
-          <div className="relative">
-            {/* Soft glow behind you */}
-            <div
-              className="absolute -inset-10 rounded-full blur-3xl opacity-60"
-              style={{
-                background:
-                  "radial-gradient(circle at 40% 35%, rgba(34,211,238,0.35), rgba(99,102,241,0.25), rgba(11,15,20,0) 70%)",
-              }}
-            />
+    {/* RIGHT: Floating Portrait */}
+    <div className="relative overflow visible">
+      {/* Soft glow behind you (true circle, no panel edges) */}
+<div
+  className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-40"
+  style={{
+    background:
+      "radial-gradient(circle at 45% 30%, rgba(34,211,238,0.35), rgba(99,102,241,0.22), rgba(11,15,20,0) 70%)",
+  }}
+/>
 
-            <div className="relative mx-auto max-w-[420px]">
-              {/* Wrap image in a relative container so overlays can sit on top */}
-              <div className="relative">
-                <img
-                  src="/headshot.jpg"
-                  alt="Jeevan Deep"
-                  className="w-full select-none object-contain drop-shadow-[0_30px_80px_rgba(0,0,0,0.75)]"
-                />
-                {/* Optional fade at bottom (remove if you don't like it) */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B0F14] via-transparent to-transparent" />
-              </div>
+      <div className="relative mx-auto max-w-[450px]">
+        <div className="portrait-wrap">
+          <img src="/headshot.png" aria-hidden="true" alt="Jeevan Deep" className="portrait-layer" />
+<img src="/headshot.png" aria-hidden="true" className="portrait-layer portrait-layer--blur" />
 
-              {/* Ground shadow (gives “standing on page” feel) */}
-              <div className="pointer-events-none absolute -bottom-6 left-1/2 h-10 w-[70%] -translate-x-1/2 rounded-full bg-black/60 blur-xl" />
-            </div>
-          </div>
+
+          <div className="portrait-fade" />
         </div>
-      </section>
 
+        {/* Ground shadow */}
+        <div className="pointer-events-none absolute -bottom-6 left-1/2 h-10 w-[70%] -translate-x-1/2 rounded-full bg-black/60 blur-xl" />
+      </div>
+    </div>
+  </div>
+</section>
+
+              
       {/* FLAGSHIP PROJECT */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
         <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8">
