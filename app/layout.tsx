@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "./components/Navbar"; // relative path = safest for now
+import BackgroundFX from "./components/BackgroundFX";
 
 export const metadata = {
   title: "Jeevan Deep | AI Product Manager | AI Delivery & Systems Thinking",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <BackgroundFX />
         <Navbar />
         {children}
       </body>
