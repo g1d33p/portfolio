@@ -25,57 +25,30 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Premium card hover: lift + subtle glow */
-.premium-card {
-  position: relative;
-  transform: translateY(0);
-  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
-}
 
-.premium-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 20px 60px rgba(0,0,0,0.55);
-}
-.premium-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.18),
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.02)
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
 
 /* Portrait frame: fixed height + soft edge fade (not boxy) */
 .portrait-wrap {
   position: relative;
   width: 100%;
-  height: 535px;
+  height: 551px;
   overflow: hidden;
   border-radius: 10px;
 
   /* Stronger edge fade so borders melt away */
   -webkit-mask-image: radial-gradient(
     ellipse at center,
-    #000 15%,
+    #000 0%,
     rgba(0,0,0,0.85) 65%,
     rgba(0,0,0,0.55) 75%,
-    transparent 92%
+    transparent 100%
   );
   mask-image: radial-gradient(
     ellipse at center,
-    #000 15%,
+    #000 0%,
     rgba(0,0,0,0.85) 65%,
     rgba(0,0,0,0.55) 75%,
-    transparent 92%
+    transparent 100%
   );
 
   -webkit-mask-repeat: no-repeat;
@@ -84,7 +57,6 @@ body {
   mask-size: 100% 100%;
 }
 
-/* Both images become true layers (so you NEVER get 2 stacked images) */
 .portrait-layer {
   position: absolute;
   inset: 0;
@@ -96,37 +68,6 @@ body {
   transform: scale(1.45);
   transform-origin: top center;
 
-  filter: drop-shadow(0 40px 120px rgba(0,0,0,0.85));
-  user-select: none;
-}
-
-/* Blur overlay ONLY at bottom */
-.portrait-layer--blur {
-  filter: blur(12px);
-  opacity: 0.6;
-
-  /* blur visible only near bottom, fades smoothly upward */
-  -webkit-mask-image: linear-gradient(
-    to top,
-    #000 0%,
-    #000 8%,
-    rgba(0,0,0,0.85) 18%,
-    rgba(0,0,0,0.35) 32%,
-    transparent 50%
-  );
-  mask-image: linear-gradient(
-    to top,
-    #000 0%,
-    #000 8%,
-    rgba(0,0,0,0.85) 18%,
-    rgba(0,0,0,0.35) 32%,
-    transparent 50%
-  );
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
 }
 
 /* Helps the portrait melt into the page background */
@@ -136,7 +77,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 55%;
+  height: 60%;
   background: linear-gradient(to top, #0b0f14, rgba(11,15,20,0.35), transparent);
 }
 .portrait-layer { background: transparent; }

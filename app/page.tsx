@@ -62,10 +62,10 @@ export default function HomePage() {
     <div className="relative">
       {/* Soft glow behind you (true circle, no panel edges) */}
 <div
-  className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-40"
+  className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-40"
   style={{
     background:
-      "radial-gradient(circle at 50% 60%, rgba(34,211,238,0.35), rgba(99,102,241,0.22), rgba(11,15,20,0) 40%)",
+      "radial-gradient(circle at 51% 60%, rgba(34,211,238,0.35), rgba(99,102,241,0.22), rgba(11,15,20,0) 40%)",
   }}
 />
 
