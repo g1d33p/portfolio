@@ -25,6 +25,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Premium card hover: lift + subtle glow */
+.premium-card {
+  position: relative;
+  transform: translateY(0);
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 20px 60px rgba(0,0,0,0.55);
+}
 .premium-card::before {
   content: "";
   position: absolute;
@@ -43,16 +54,6 @@ body {
   pointer-events: none;
 }
 
-/* Premium card hover: lift + subtle glow */
-.premium-card {
-  position: relative;
-  transform: translateY(0);
-  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
-}
 
-.premium-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 20px 60px rgba(0,0,0,0.55);
-}
 
 
