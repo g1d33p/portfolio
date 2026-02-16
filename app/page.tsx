@@ -1,7 +1,11 @@
+import { getAllProjects } from "../lib/projects";
 // app/page.tsx
 // Home page
 
 export default function HomePage() {
+  const projects = getAllProjects();
+  const featured = projects.filter((p) => p.featured);
+  const flagship = projects.find((p) => p.flagship) ?? featured[0];
   return (
     <main className="min-h-screen bg-[#0B0F14] text-white">
 {/* HERO SECTION */}
@@ -86,42 +90,34 @@ export default function HomePage() {
 
               
       {/* FLAGSHIP PROJECT */}
-      <section className="mx-auto max-w-6xl px-6 pb-20">
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8">
-          <div className="text-xs font-medium tracking-wide text-white/60">
-            Flagship Delivery
-          </div>
+<section className="mx-auto max-w-6xl px-6 pb-20">
+  {flagship ? (
+    <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8">
+      <div className="text-xs font-medium tracking-wide text-white/60">
+        Flagship Delivery
+      </div>
 
-          <h2 className="mt-3 text-2xl font-semibold">
-            Bank Telemarketing Propensity System
-          </h2>
+      <h2 className="mt-3 text-2xl font-semibold">{flagship.title}</h2>
 
-          <p className="mt-4 max-w-2xl text-white/70">
-            Built an end-to-end prioritization framework combining predictive
-            modeling, decision simulation, and rollout planning to help teams
-            focus outreach on customers most likely to convert.
-          </p>
+      <p className="mt-4 max-w-2xl text-white/70">{flagship.subtitle}</p>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-sm">
-            <span className="rounded-full border border-white/20 px-3 py-1">
-              Predictive Modeling
-            </span>
-            <span className="rounded-full border border-white/20 px-3 py-1">
-              Stakeholder Alignment
-            </span>
-            <span className="rounded-full border border-white/20 px-3 py-1">
-              Deployment Planning
-            </span>
-          </div>
+      <div className="mt-6 flex flex-wrap gap-3 text-sm">
+        {flagship.tags.slice(0, 3).map((t) => (
+          <span key={t} className="rounded-full border border-white/20 px-3 py-1">
+            {t}
+          </span>
+        ))}
+      </div>
 
-          <a
-            href="/projects/bank-telemarketing"
-            className="mt-6 inline-block rounded-2xl bg-white px-5 py-3 font-medium text-black hover:opacity-90"
-          >
-            View Case Study →
-          </a>
-        </div>
-      </section>
+      <a
+        href={`/projects/${flagship.slug}`}
+        className="mt-6 inline-block rounded-2xl bg-white px-5 py-3 font-medium text-black hover:opacity-90"
+      >
+        View Case Study →
+      </a>
+    </div>
+  ) : null}
+</section>
 
       {/* WHAT I DO */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
@@ -164,25 +160,17 @@ export default function HomePage() {
         </p>
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <ProjectCard
-            title="Bank Telemarketing Propensity"
-            tag="Capstone • AI Delivery"
-            outcome="Built prioritization models + what-if dashboard; documented risks & rollout plan."
-            href="/projects/bank-telemarketing"
-          />
-          <ProjectCard
-            title="Halloween Demand × Weather"
-            tag="Time-series • BI"
-            outcome="Integrated multi-source data and shipped a Tableau dashboard for planning."
-            href="/projects/halloween-demand"
-          />
-          <ProjectCard
-            title="Warranty Cost Optimization"
-            tag="Hackathon • Decision Support"
-            outcome="Delivered prioritization insights with constraints, explainability, and stakeholder review."
-            href="/projects/warranty-optimization"
-          />
-        </div>
+  {featured.map((p) => (
+    <ProjectCard
+      key={p.slug}
+      title={p.title}
+      tag={p.featuredTag ?? `${p.type} • ${p.year}`}
+      outcome={p.featuredOutcome ?? p.subtitle}
+      href={`/projects/${p.slug}`}
+    />
+  ))}
+</div>
+
       </section>
 
       {/* LEADERSHIP & EXECUTION */}
