@@ -27,7 +27,7 @@ export default function Navbar() {
 
           {/* Resume button (you can replace href later with a real PDF link) */}
           <a
-            href="#"
+            href="/resume.pdf"
             className="rounded-2xl bg-white px-4 py-2 font-medium text-black hover:opacity-90"
           >
             Resume

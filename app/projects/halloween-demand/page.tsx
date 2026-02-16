@@ -22,6 +22,15 @@ export default function HalloweenDemandCaseStudy() {
           A multi-source analytics delivery project combining weather and demand data to support staffing and inventory planning decisions.
         </p>
 
+        <div className="mt-8 overflow-hidden rounded-3xl border border-white/10">
+  <img
+    src="/projects/halloween.png"
+    alt="Bank telemarketing dashboard"
+    className="w-full object-cover"
+  />
+</div>
+
+
         {/* Quick facts */}
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           <InfoCard label="Role" value="Project lead (analytics delivery)" />
