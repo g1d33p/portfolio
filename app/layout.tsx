@@ -12,9 +12,6 @@ export const metadata = {
     "Analytics Delivery",
     "Jeevan Deep",
   ],
-  icons: {
-    icon: "/favicon.png",
-  },
 };
 
 
