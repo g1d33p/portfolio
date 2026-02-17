@@ -4,13 +4,14 @@ import { getAllProjects } from "../lib/projects";
 
 export default function HomePage() {
   const projects = getAllProjects();
-  const featured = projects.filter((p) => p.featured);
-  const flagship = projects.find((p) => p.flagship) ?? featured[0];
+  const flagship = projects.find((p) => p.flagship);
+  const spotlight = projects.find(p => p.spotlight);
+  const others = projects.filter(p => !p.flagship && !p.spotlight);
   return (
     <main className="min-h-screen bg-[#0B0F14] text-white">
 {/* HERO SECTION */}
 <section className="mx-auto max-w-6xl px-6 py-20">
-  <div className="grid gap-10 md:grid-cols-2 md:items-center">
+  <div className="grid gap-10 md:grid-cols-2 md:items-start">
     {/* LEFT: Copy */}
     <div>
       <div className="flex flex-wrap gap-2">
@@ -18,48 +19,40 @@ export default function HomePage() {
           AI Product / Project Management
         </span>
         <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-          Systems Thinking • Delivery • Stakeholders
+          Systems Thinking
+        </span>
+        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
+        PMP Delivery Rigor
         </span>
       </div>
 
-      <h1 className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
-        I ship AI & analytics work that{" "}
-        <span className="text-white/70">changes decisions</span>, not just
-        dashboards.
+      <h1 className="mt-8 text-5xl font-semibold leading-[1.10] tracking-tight md:text-6xl">
+       I lead AI & analytics projects from problem to {" "}
+        <span className="text-white/70">deployment</span>
       </h1>
 
-      <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
-        I frame messy problems, align stakeholders, and turn technical work into
-        measurable outcomes — with a PMP mindset for risk, scope, and delivery.
-      </p>
+      <p className="mt-8 max-w-xl text-[14px] leading-[1.65] text-white/70"><i>
+  I align stakeholders, model strategy, and delivery plans so teams actually use the system — not just admire dashboards.</i>
+</p>
 
-      <div className="mt-10 flex flex-wrap gap-3">
+
+      <div className="mt-8 flex flex-wrap gap-3">
         <a
           href="/projects"
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black hover:opacity-90"
+          className="rounded-2xl bg-white px-5 py-3 text-[15px] font-medium text-black hover:opacity-90"
         >
-          View Case Studies
-        </a>
-        <a
-          href="/#contact"
-          className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-        >
-          Contact
+          View Work
         </a>
         <a
           href="/resume.pdf"
           className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
         >
-          Resume
+          View Resume
         </a>
       </div>
 
-      {/* Quick metrics */}
-      <div className="mt-10 grid grid-cols-3 gap-3">
-        <Metric label="Focus" value="AI delivery" />
-        <Metric label="Style" value="PM mindset" />
-        <Metric label="Strength" value="Story + execution" />
-      </div>
+
+
     </div>
 
     {/* RIGHT: Floating Portrait */}
@@ -90,7 +83,7 @@ export default function HomePage() {
 
               
       {/* FLAGSHIP PROJECT */}
-<section className="mx-auto max-w-6xl px-6 pb-20">
+<section className="mx-auto max-w-6xl px-6 pb-20 -mt-10 md:-mt-16">
   {flagship ? (
     <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8">
       <div className="text-xs font-medium tracking-wide text-white/60">
@@ -118,6 +111,36 @@ export default function HomePage() {
     </div>
   ) : null}
 </section>
+
+{/* SPOTLIGHT PROJECT */}
+<section className="mx-auto max-w-6xl px-6 pb-20">
+  {spotlight ? (
+    <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
+      <div className="text-xs font-medium tracking-wide text-white/60">
+        Spotlight Delivery
+      </div>
+
+      <h2 className="mt-3 text-2xl font-semibold">{spotlight.title}</h2>
+      <p className="mt-4 max-w-2xl text-white/70">{spotlight.subtitle}</p>
+
+      <div className="mt-6 flex flex-wrap gap-3 text-sm">
+        {spotlight.tags.slice(0, 3).map((t) => (
+          <span key={t} className="rounded-full border border-white/20 px-3 py-1">
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <a
+        href={`/projects/${spotlight.slug}`}
+        className="mt-6 inline-block rounded-2xl border border-white/20 bg-white/5 px-5 py-3 font-medium text-white hover:bg-white/10"
+      >
+        View Case Study →
+      </a>
+    </div>
+  ) : null}
+</section>
+
 
       {/* WHAT I DO */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
@@ -152,26 +175,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS */}
-      <section id="featured" className="mx-auto max-w-6xl px-6 pb-20">
-        <h2 className="text-2xl font-semibold">Featured Case Studies</h2>
-        <p className="mt-2 text-white/70">
-          These are the projects that best represent how I think and deliver.
-        </p>
+      {/* OTHER WORK */}
+<section className="mx-auto max-w-6xl px-6 pb-20">
+  <div className="flex items-end justify-between gap-4">
+    <div>
+      <h2 className="text-2xl font-semibold">Other Work</h2>
+      <p className="mt-2 text-white/70">
+        Additional projects that show range across analytics, BI, and decision support.
+      </p>
+    </div>
+    <a href="/projects" className="text-sm text-white/70 hover:text-white">
+      View all →
+    </a>
+  </div>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-  {featured.map((p) => (
-    <ProjectCard
-      key={p.slug}
-      title={p.title}
-      tag={p.featuredTag ?? `${p.type} • ${p.year}`}
-      outcome={p.featuredOutcome ?? p.subtitle}
-      href={`/projects/${p.slug}`}
-    />
-  ))}
-</div>
+  <div className="mt-8 grid gap-6 md:grid-cols-3">
+    {others.slice(0, 3).map((p) => (
+      <ProjectCard
+        key={p.slug}
+        title={p.title}
+        tag={p.featuredTag ?? `${p.type} • ${p.year}`}
+        outcome={p.featuredOutcome ?? p.subtitle}
+        href={`/projects/${p.slug}`}
+      />
+    ))}
+  </div>
+</section>
 
-      </section>
 
       {/* LEADERSHIP & EXECUTION */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
@@ -198,36 +228,53 @@ export default function HomePage() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="mx-auto max-w-6xl px-6 pb-24">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-10">
-          <h2 className="text-2xl font-semibold">Contact</h2>
-          <p className="mt-2 text-white/70">
-            Add your email / LinkedIn here (you said you’ll handle personal
-            details).
-          </p>
+<section id="contact" className="mx-auto max-w-6xl px-6 pb-24">
+  <div className="rounded-3xl border border-white/10 bg-white/5 p-10">
+    <h2 className="text-2xl font-semibold">Contact</h2>
+    <p className="mt-2 text-white/60">
+  Open to AI Project Manager, AI Product, and Analytics Delivery roles.
+</p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="#"
-              className="rounded-2xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="#"
-              className="rounded-2xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-            >
-              GitHub
-            </a>
-            <a
-              href="/resume.pdf"
-              className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-black hover:opacity-90"
-            >
-              Download Resume
-            </a>
-          </div>
-        </div>
-      </section>
+    {/* Contact details */}
+    <div className="mt-6 flex flex-col text-white/70">
+      <a
+        href="mailto:deep.jeevan21@gmail.com"
+        className="hover:text-white transition"
+      >
+        deep.jeevan21@gmail.com
+      </a>
+
+      <a
+        href="tel:+19408438446"
+        className="mt-1 hover:text-white transition"
+      >
+        +1 (940) 843-8446
+      </a>
+    </div>
+
+    {/* Buttons */}
+    <div className="mt-6 flex flex-wrap gap-3">
+      <a
+        href="https://www.linkedin.com/in/jeevandeepb"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="rounded-2xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+      >
+        LinkedIn
+      </a>
+
+      <a
+        href="https://github.com/g1d33p"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="rounded-2xl border border-white/20 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+      >
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
     </main>
   );
 }

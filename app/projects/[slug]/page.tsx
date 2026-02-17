@@ -57,6 +57,26 @@ export default async function ProjectPage({ params }: Props) {
           {project.title}
         </h1>
         <p className="mt-3 text-white/70">{project.subtitle}</p>
+        {project.role ? (
+  <p className="mt-2 text-sm text-white/60">
+    <span className="font-medium text-white/80">Role:</span> {project.role}
+  </p>
+) : null}
+
+        {project.metrics?.length ? (
+  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+    {project.metrics.slice(0, 4).map((m) => (
+      <div
+        key={m.label}
+        className="rounded-2xl border border-white/10 bg-white/5 p-4"
+      >
+        <div className="text-xs text-white/60">{m.label}</div>
+        <div className="mt-1 text-sm font-medium text-white/85">{m.value}</div>
+      </div>
+    ))}
+  </div>
+) : null}
+
       </header>
 
       <section className="mt-10 space-y-10">
@@ -72,6 +92,17 @@ export default async function ProjectPage({ params }: Props) {
           </ul>
         </Block>
 
+        {project.ownership?.length ? (
+  <Block title="What I Owned">
+    <ul className="list-disc space-y-2 pl-5 text-white/75">
+      {project.ownership.map((o) => (
+        <li key={o}>{o}</li>
+      ))}
+    </ul>
+  </Block>
+) : null}
+
+
         <Block title="Impact">
           <ul className="list-disc space-y-2 pl-5 text-white/75">
             {project.impact.map((item) => (
@@ -79,6 +110,27 @@ export default async function ProjectPage({ params }: Props) {
             ))}
           </ul>
         </Block>
+
+        {project.deployment?.length ? (
+  <Block title="Deployment & Monitoring">
+    <ul className="list-disc space-y-2 pl-5 text-white/75">
+      {project.deployment.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  </Block>
+) : null}
+
+{project.risks?.length ? (
+  <Block title="Risks & Tradeoffs">
+    <ul className="list-disc space-y-2 pl-5 text-white/75">
+      {project.risks.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  </Block>
+) : null}
+
 
         <Block title="Tools">
           <div className="flex flex-wrap gap-2">
@@ -94,22 +146,26 @@ export default async function ProjectPage({ params }: Props) {
         </Block>
 
         {project.links?.length ? (
-          <Block title="Links">
-            <div className="flex flex-col gap-2">
-              {project.links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white"
-                >
-                  {l.label} →
-                </a>
-              ))}
-            </div>
-          </Block>
-        ) : null}
+  <Block title="Resources">
+    <div className="flex flex-wrap gap-3">
+      {project.links.map((l) => {
+        const isExternal = l.href.startsWith("http");
+        return (
+          <a
+            key={l.href}
+            href={l.href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+          >
+            {l.label}
+          </a>
+        );
+      })}
+    </div>
+  </Block>
+) : null}
+
       </section>
       <ProjectNav currentSlug={slug} />
     </main>
