@@ -7,7 +7,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
         {/* Left side: brand */}
         <a href="/" className="font-semibold tracking-tight hover:opacity-90">
-          <i>Jeevan Deep</i>
+          <b>Jeevan Deep</b>
           <span className="ml-2 text-xs font-medium text-white/60">
             AI PM
           </span>

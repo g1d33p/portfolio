@@ -203,9 +203,9 @@ export default function HomePage() {
 </section>
 
 
-      {/* LEADERSHIP & EXECUTION */}
+      {/* CERTIFICATIONS & LEADERSHIP */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
-        <h2 className="text-2xl font-semibold">Leadership & Execution</h2>
+        <h2 className="text-2xl font-semibold">Certifications & Leadership</h2>
         <p className="mt-2 text-white/70">
           Beyond technical delivery, I apply structured project thinking across
           professional and real-world coordination work.
@@ -214,15 +214,15 @@ export default function HomePage() {
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <LeadershipCard
             title="PMP Certified"
-            description="Applies structured risk thinking, stakeholder mapping, and delivery planning principles across AI and analytics work."
+            description="Servant leadership minded, Business vision driven. Applies structured risk thinking, stakeholder mapping, and delivery planning principles across AI and analytics work."
           />
           <LeadershipCard
-            title="College Band Coordination"
-            description="Managed schedules, rehearsals, and group alignment to deliver performances under time constraints."
+            title="Leading IT Teams"
+            description="Lead and mentored teams of size 3-12 at Amazon, TCS and Wipro Ltd."
           />
           <LeadershipCard
-            title="Large Event Planning"
-            description="Coordinated vendors, logistics, timelines, and expectations for a high-stake multi-stakeholder event."
+            title="Events Planning & Coordination"
+            description="Coordinated multiple vendors, logistics, timelines, and expectations for multiple high-stake multi-stakeholder events, managing more than ~300 people per event"
           />
         </div>
       </section>

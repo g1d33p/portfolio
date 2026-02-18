@@ -146,7 +146,7 @@ export default async function ProjectPage({ params }: Props) {
         </Block>
 
         {project.links?.length ? (
-  <Block title="Resources">
+  <Block title="Deep Dive">
     <div className="flex flex-wrap gap-3">
       {project.links.map((l) => {
         const isExternal = l.href.startsWith("http");

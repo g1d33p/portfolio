@@ -37,10 +37,10 @@ export const projects: Project[] = [
     slug: "bank-telemarketing",
     title: "Bank Telemarketing Propensity System",
     subtitle:
-      "Leakage-free pre-call prioritization + decision support to improve outreach efficiency.",
+      "Leakage-free pre-call prioritization + decision support to improve outreach efficiency using Machine Learning.",
     year: "2025",
     type: "Capstone",
-    tags: ["ML", "Decision Support", "Explainability"],
+    tags: ["Exploratory Data Analysis", "Business Impact Analysis", "Market Analysis & Deployment Strategy"],
     flagship: true,
     featured: true,
     spotlight: false,
@@ -93,12 +93,12 @@ export const projects: Project[] = [
       "Improves adoption readiness via explainability + documented rollout, monitoring, and retraining plan.",
     ],
   
-    tools: ["Python", "scikit-learn", "XGBoost/LightGBM", "Neural Net", "SHAP"],
+    tools: ["Python", "Tableau", "MS Office"],
   
     // UPDATED: add final report PDF link (make sure file exists in /public)
     links: [
-      { label: "Final Report (PDF)", href: "/reports/bank-telemarketing-final-report.pdf" },
-      { label: "GitHub", href: "https://github.com/g1d33p/Capstone-2025" },
+      { label: "Full Report (Viz included)", href: "/reports/bank-telemarketing-final-report.pdf" },
+      { label: "GitHub (Dataset and Code)", href: "https://github.com/g1d33p/Capstone-2025" },
     ],
   },
   
@@ -107,7 +107,7 @@ export const projects: Project[] = [
     title: "Aqua 4.0 (ShrimpVision)",
     subtitle:
       "Mobile-first AI product to automate shrimp larvae counting and generate biomass + operational insights.",
-    year: "2025",
+    year: "2024",
     type: "Startup Product",
     role:
       "CTO — led technical strategy, product architecture, model feasibility analysis, and mobile UX concept design.",
@@ -117,7 +117,7 @@ export const projects: Project[] = [
         "Defined system architecture and deployment approach",
         "Contributed to pricing, rollout, and go-to-market strategy",
       ],      
-    tags: ["Computer Vision", "Mobile Product", "AI Delivery", "Startup"],
+    tags: ["Tech + Market Analysis", "Product Design", "Computer Vision"],
     flagship: false,
     featured: true,
     spotlight: true,
@@ -165,10 +165,10 @@ export const projects: Project[] = [
   
     tools: [
       "Computer Vision",
-      "Deep Learning",
       "Mobile UX design",
       "Product architecture planning",
-      "Cloud integration concepts",
+      "Google Cloud integration",
+      "Flutter & Firebase"
     ],
   
     links: [
@@ -187,7 +187,7 @@ export const projects: Project[] = [
     type: "Analytics",
     tags: ["BI", "Time Series", "Data Integration"],
     flagship: false,
-    featured: true,
+    featured: false,
     spotlight: false,
     featuredTag: "Time-series • BI",
     featuredOutcome:
@@ -214,7 +214,7 @@ export const projects: Project[] = [
     type: "Hackathon",
     tags: ["Optimization", "Stakeholders", "Explainability"],
     flagship: false,
-    featured: true,
+    featured: false,
     spotlight: false,
     featuredTag: "Hackathon • Decision Support",
     featuredOutcome:
