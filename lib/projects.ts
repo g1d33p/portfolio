@@ -104,6 +104,10 @@ export const projects: Project[] = [
       { label: "Full Report (Viz included)", href: "/reports/bank-telemarketing-final-report.pdf" },
       { label: "GitHub (Dataset and Code)", href: "https://github.com/g1d33p/Capstone-2025" },
     ],
+    heroImage: {
+      src: "/projects/bankPic.png",
+      alt: "Retail performance and discount optimization dashboard",
+    },
     
   },
   
@@ -181,6 +185,10 @@ export const projects: Project[] = [
       { label: "Tech + Market Feasibility", href: "/reports/aqua-4.0-feasibility.pdf" },
       { label: "Revenue Model", href: "/reports/aqua-4.0-revenue-model.pdf" },
     ],
+    heroImage: {
+      src: "/projects/aqua.png",
+      alt: "Retail performance and discount optimization dashboard",
+    },
   },
   {
     slug: "retail-performance-dashboard",
