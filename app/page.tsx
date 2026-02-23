@@ -10,10 +10,11 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#0B0F14] text-white">
 {/* HERO SECTION */}
-<section className="mx-auto max-w-6xl px-6 py-20">
+<section className="mx-auto max-w-6xl px-6 py-10">
   <div className="grid gap-10 md:grid-cols-2 md:items-start">
     {/* LEFT: Copy */}
     <div>
+      
       <div className="flex flex-wrap gap-2">
         <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
           AI Product / Project Management
@@ -83,7 +84,7 @@ export default function HomePage() {
 
               
       {/* FLAGSHIP PROJECT */}
-<section className="mx-auto max-w-6xl px-6 pb-20 -mt-10 md:-mt-16">
+<section className="mx-auto max-w-6xl px-6 pb-20 -mt-10 md:-mt-10">
   {flagship ? (
     <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-8">
       <div className="text-xs font-medium tracking-wide text-white/60">

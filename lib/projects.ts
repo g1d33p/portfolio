@@ -177,7 +177,44 @@ export const projects: Project[] = [
       { label: "Revenue Model", href: "/reports/aqua-4.0-revenue-model.pdf" },
     ],
   },
+  {
+    slug: "retail-performance-dashboard",
+    title: "Retail Performance & Discount Optimization Dashboard",
+    subtitle:
+      "Executive Tableau dashboard analyzing sales, profit leakage, and discount sensitivity across product categories.",
+    year: "2025",
+    type: "BI / Analytics",
+    tags: ["Tableau", "Business Intelligence", "Pricing Strategy", "Data Storytelling"],
+    featured: true,
   
+    featuredTag: "BI • Executive Dashboard",
+    featuredOutcome:
+      "Identified discount-driven profit leakage and category-level pricing risks through executive visual analytics.",
+  
+    problem:
+      "Retail leadership lacked a clear view of how discounting impacted profitability across categories and time. Decisions were made on revenue signals without understanding margin erosion or pricing sensitivity.",
+  
+    approach: [
+      "Built a multi-level executive dashboard showing sales, profit, and quantity trends.",
+      "Designed subcategory-level profitability comparison visuals to detect leakage patterns.",
+      "Created discount sensitivity curves to show where profit collapses.",
+      "Added heatmaps to reveal category-specific pricing risks and discount thresholds.",
+      "Focused layout on executive readability rather than analyst complexity.",
+    ],
+  
+    impact: [
+      "Revealed categories where discounts drove revenue but destroyed profit.",
+      "Enabled leadership to identify optimal discount ranges.",
+      "Created an executive-ready decision dashboard instead of raw reporting.",
+      "Strengthened storytelling capability around pricing strategy and margin risk.",
+    ],
+  
+    tools: ["Tableau", "Data Modeling", "Business Analysis", "Dashboard UX"],
+  
+    links: [
+      { label: "Tableau Public", href: "https://public.tableau.com/app/profile/jeevan.deep.borugadda/viz/SalesandCustomerDashboard_17716511596500/SalesDashboard?publish=yes" }
+    ],
+  },
   
   {
     slug: "halloween-demand",

@@ -78,7 +78,11 @@ export default async function ProjectPage({ params }: Props) {
 ) : null}
 
       </header>
-
+      <img
+  src={`/projects/retail-performance-dashboard.png`}
+  alt={project.title}
+  className="mt-6 rounded-2xl border border-white/10"
+/>
       <section className="mt-10 space-y-10">
         <Block title="Problem">
           <p className="text-white/75">{project.problem}</p>
