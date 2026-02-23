@@ -28,8 +28,12 @@ export type Project = {
   metrics?: { label: string; value: string }[];
   deployment?: string[];
   risks?: string[];
-
   links?: { label: string; href: string }[];
+  heroImage?: {
+    src: string;     // e.g. "/projects/retail-performance-dashboard.png"
+    alt?: string;
+    caption?: string;
+  };
 };
 
 export const projects: Project[] = [
@@ -100,6 +104,7 @@ export const projects: Project[] = [
       { label: "Full Report (Viz included)", href: "/reports/bank-telemarketing-final-report.pdf" },
       { label: "GitHub (Dataset and Code)", href: "https://github.com/g1d33p/Capstone-2025" },
     ],
+    
   },
   
   {
@@ -214,6 +219,10 @@ export const projects: Project[] = [
     links: [
       { label: "Tableau Public", href: "https://public.tableau.com/app/profile/jeevan.deep.borugadda/viz/SalesandCustomerDashboard_17716511596500/SalesDashboard?publish=yes" }
     ],
+    heroImage: {
+      src: "/projects/retail-performance-dashboard.png",
+      alt: "Retail performance and discount optimization dashboard",
+    },
   },
   
   {

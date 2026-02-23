@@ -78,11 +78,20 @@ export default async function ProjectPage({ params }: Props) {
 ) : null}
 
       </header>
-      <img
-  src={`/projects/retail-performance-dashboard.png`}
-  alt={project.title}
-  className="mt-6 rounded-2xl border border-white/10"
-/>
+      {project.heroImage?.src ? (
+  <figure className="mt-6">
+    <img
+      src={project.heroImage.src}
+      alt={project.heroImage.alt ?? project.title}
+      className="w-full rounded-2xl border border-white/10"
+    />
+    {project.heroImage.caption ? (
+      <figcaption className="mt-2 text-xs text-white/50">
+        {project.heroImage.caption}
+      </figcaption>
+    ) : null}
+  </figure>
+) : null}
       <section className="mt-10 space-y-10">
         <Block title="Problem">
           <p className="text-white/75">{project.problem}</p>
