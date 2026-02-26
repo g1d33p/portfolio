@@ -112,6 +112,138 @@ export const projects: Project[] = [
   },
   
   {
+    slug: "portfolio-rag-citations",
+    title: "(InProgress) Portfolio RAG: Grounded Recruiter Q&A (Citations + Evals)",
+    subtitle:
+      "RAG system that answers recruiter questions about my projects and resume with source citations and evaluation scoring.",
+    year: "2026",
+    type: "GenAI System",
+    tags: ["RAG", "LLM Evaluation", "Vector Search", "Guardrails", "Deployment"],
+    flagship: false,
+    featured: true,
+    spotlight: true,
+    featuredTag: "GenAI • RAG + Evals",
+    featuredOutcome:
+      "Shipped a citation-grounded RAG app with golden-set evals, latency/cost tracking, and refusal behavior when sources are missing.",
+  
+    problem:
+      "Recruiters and hiring managers want fast, trustworthy answers about experience and impact — but typical chatbots hallucinate. The goal was a grounded QA system that only answers using my portfolio + resume sources, with citations and measurable reliability.",
+  
+    metrics: [
+      { label: "Golden-set Q/A", value: "30+ labeled questions" },
+      { label: "Faithfulness", value: "Target: ≥ 90% grounded" },
+      { label: "Avg latency", value: "Target: < 3.0s" },
+      { label: "Cost / query", value: "Tracked (tokens + retrieval)" },
+    ],
+  
+    approach: [
+      "Ingested portfolio case studies + resume PDFs into a document pipeline (chunking + metadata).",
+      "Embedded chunks into a vector index and added a retrieval layer (top-k + optional rerank).",
+      "Generated answers with strict grounding: citations required; refuse when evidence is missing.",
+      "Built an evaluation harness (golden Q/A) to score answer relevance + citation coverage + faithfulness.",
+      "Instrumented usage telemetry to monitor latency, failure rates, and cost per query.",
+    ],
+  
+    deployment: [
+      "Deployed as a web app with API routes for retrieval + generation.",
+      "Guardrails: ‘answer only from sources’ + refusal fallback + max context limits.",
+      "Monitoring: latency, cost/query, top queries, retrieval hit-rate, and eval regression checks after changes.",
+      "Iteration loop: add new golden questions whenever new portfolio content ships.",
+    ],
+  
+    risks: [
+      "Over-retrieval: too many chunks increases cost and can dilute grounding — tuned k and chunk size.",
+      "Missing evidence: system must refuse instead of guessing — enforced citation requirement.",
+      "Stale index: portfolio updates require re-embedding — added a lightweight re-index workflow.",
+    ],
+  
+    impact: [
+      "Demonstrates production-style RAG thinking: grounding, evals, guardrails, and monitoring — not just a demo chatbot.",
+      "Turns a portfolio into an interactive, verifiable knowledge base recruiters can trust.",
+      "Shows AI PM skill set: system design tradeoffs (quality vs latency vs cost) and measurable reliability.",
+    ],
+  
+    tools: ["Next.js", "TypeScript", "OpenAI API (or equivalent)", "Vector DB", "Evaluation Harness"],
+  
+    links: [
+      { label: "Live Demo", href: "PUT_YOUR_DEMO_LINK_HERE" },
+      { label: "GitHub Repo", href: "PUT_YOUR_GITHUB_LINK_HERE" },
+      { label: "PRD (1-page)", href: "/reports/portfolio-rag-prd.pdf" },
+    ],
+  
+    heroImage: {
+      src: "/projects/portfolio-rag.png",
+      alt: "RAG system with citations and evaluation dashboard",
+    },
+  },
+  
+  {
+    slug: "ai-pm-ops-copilot",
+    title: "(InProgress) AI PM Ops Copilot: JD → Fit-Gap → Tailored Assets (Human-in-the-loop)",
+    subtitle:
+      "Agentic workflow that turns a job description into a fit-gap matrix, portfolio edits, outreach drafts, and interview prep — with approvals + audit logs.",
+    year: "2026",
+    type: "Agentic Workflow",
+    tags: ["AI Agents", "Tool Use", "Human-in-the-loop", "Workflow Automation"],
+    flagship: false,
+    featured: true,
+    spotlight: false,
+    featuredTag: "Agents • HITL + Reliability",
+    featuredOutcome:
+      "Built an agentic workflow with tool constraints, approvals, and run history to reduce application prep time while keeping outputs controlled.",
+  
+    problem:
+      "Most job-application automation fails because it’s either too generic or too risky (hallucinates, misrepresents experience). The goal was a controlled agent workflow that produces high-signal assets while keeping the user in charge via approvals and evidence-backed drafting.",
+  
+    metrics: [
+      { label: "Time saved / application", value: "Target: 60–75%" },
+      { label: "User edit acceptance", value: "Tracked per artifact" },
+      { label: "Reliability", value: "Validation checks + refusal rules" },
+      { label: "Auditability", value: "Run history + sources logged" },
+    ],
+  
+    approach: [
+      "Designed a tool-using workflow: parse JD → extract requirements → map evidence from resume/projects → draft assets.",
+      "Added Human-in-the-loop checkpoints before final writing (approve/edit/regen).",
+      "Implemented validation rules (no claims without evidence; consistent dates/titles; format checks).",
+      "Created run history: inputs, outputs, decisions, and timestamps for auditability.",
+      "Shipped a simple UI so users can iterate quickly and track outputs per role.",
+    ],
+  
+    deployment: [
+      "Deployed with a lightweight UI + backend workflow runner.",
+      "Logging: captures prompts, tool calls, and outputs for debugging and reliability.",
+      "Monitoring: failure rate, regeneration rate, and time-to-final per artifact.",
+      "Security note: user data stays private; supports deleting runs/artifacts.",
+    ],
+  
+    risks: [
+      "Over-automation risk: prevents misrepresentation by requiring evidence mapping + approvals.",
+      "Prompt drift: outputs vary over time — stabilized with templates + validation checks.",
+      "Tool failures: added retries + graceful fallback to manual steps.",
+    ],
+  
+    impact: [
+      "Demonstrates real-world agent design: tool constraints, HITL approvals, logging, and reliability tradeoffs.",
+      "Shows AI PM thinking: user journey, risks/guardrails, measurable outcomes, and iteration loops.",
+      "Creates a practical demo that recruiters immediately understand (and you can show live).",
+    ],
+  
+    tools: ["n8n or LangGraph", "Next.js UI", "LLM Tool Calling", "Templates", "Logging/Telemetry"],
+  
+    links: [
+      { label: "Live Demo", href: "PUT_YOUR_DEMO_LINK_HERE" },
+      { label: "GitHub Repo / Workflow", href: "PUT_YOUR_GITHUB_LINK_HERE" },
+      { label: "Workflow Spec", href: "/reports/ai-pm-ops-copilot-spec.pdf" },
+    ],
+  
+    heroImage: {
+      src: "/projects/ai-pm-ops-copilot.png",
+      alt: "Agent workflow with approvals and run history",
+    },
+  },
+
+  {
     slug: "aqua-4.0",
     title: "Aqua 4.0 (ShrimpVision)",
     subtitle:
@@ -129,7 +261,7 @@ export const projects: Project[] = [
     tags: ["Tech + Market Analysis", "Product Design", "Computer Vision"],
     flagship: false,
     featured: true,
-    spotlight: true,
+    spotlight: false,
     featuredTag: "Startup • Product + AI",
     featuredOutcome:
       "Defined the product, technical approach, UX flow, and pilot rollout strategy for a scalable mobile AI system.",

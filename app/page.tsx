@@ -20,11 +20,12 @@ export default function HomePage() {
           AI Product / Project Management
         </span>
         <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-          Systems Thinking
-        </span>
+  RAG • Agents • Evals
+</span>
         <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
         PMP Delivery Rigor
         </span>
+
       </div>
 
       <h1 className="mt-8 text-5xl font-semibold leading-[1.10] tracking-tight md:text-6xl">
