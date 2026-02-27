@@ -50,7 +50,11 @@ def main():
     docs = load_documents()
     print(f"✅ Loaded {len(docs)} PDF documents.")
 
-    splitter = RecursiveCharacterTextSplitter(chunk_size=900, chunk_overlap=150)
+    splitter = RecursiveCharacterTextSplitter(
+    chunk_size=500,
+    chunk_overlap=80,
+    separators=["\n\n", "\n", "•", "-", ".", " "]
+) 
 
     chunks, metadatas, ids = [], [], []
     chunk_id = 0

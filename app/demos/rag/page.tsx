@@ -29,7 +29,7 @@ export default function RagDemoPage() {
       const resp = await fetch("http://localhost:8000/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: q, top_k: 5 }),
+        body: JSON.stringify({ question: q, top_k: 10 }),
       });
 
       const data = await resp.json();

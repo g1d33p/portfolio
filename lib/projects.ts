@@ -113,7 +113,7 @@ export const projects: Project[] = [
   
   {
     slug: "portfolio-rag-citations",
-    title: "(InProgress) Portfolio RAG: Grounded Recruiter Q&A (Citations + Evals)",
+    title: "Portfolio RAG: Grounded Recruiter Q&A (Citations + Evals)",
     subtitle:
       "RAG system that answers recruiter questions about my projects and resume with source citations and evaluation scoring.",
     year: "2026",
@@ -166,9 +166,9 @@ export const projects: Project[] = [
     tools: ["Next.js", "TypeScript", "OpenAI API (or equivalent)", "Vector DB", "Evaluation Harness"],
   
     links: [
-      { label: "Live Demo", href: "PUT_YOUR_DEMO_LINK_HERE" },
-      { label: "GitHub Repo", href: "PUT_YOUR_GITHUB_LINK_HERE" },
-      { label: "PRD (1-page)", href: "/reports/portfolio-rag-prd.pdf" },
+      { label: "Live Demo", href: "https://youtu.be/z2po4USyml0" },
+      { label: "GitHub Repo", href: "https://github.com/g1d33p/portfolio/tree/main/demos/rag-local" },
+      { label: "PRD (1-page)", href: "/reports/Portfolio_RAG_PRD_OnePager.pdf" },
     ],
   
     heroImage: {
@@ -179,7 +179,7 @@ export const projects: Project[] = [
   
   {
     slug: "ai-pm-ops-copilot",
-    title: "(InProgress) AI PM Ops Copilot: JD → Fit-Gap → Tailored Assets (Human-in-the-loop)",
+    title: "AI PM Ops Copilot: JD → Fit-Gap → Tailored Assets (Human-in-the-loop)",
     subtitle:
       "Agentic workflow that turns a job description into a fit-gap matrix, portfolio edits, outreach drafts, and interview prep — with approvals + audit logs.",
     year: "2026",
