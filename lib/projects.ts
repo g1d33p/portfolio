@@ -232,9 +232,9 @@ export const projects: Project[] = [
     tools: ["n8n or LangGraph", "Next.js UI", "LLM Tool Calling", "Templates", "Logging/Telemetry"],
   
     links: [
-      { label: "Live Demo", href: "PUT_YOUR_DEMO_LINK_HERE" },
-      { label: "GitHub Repo / Workflow", href: "PUT_YOUR_GITHUB_LINK_HERE" },
-      { label: "Workflow Spec", href: "/reports/ai-pm-ops-copilot-spec.pdf" },
+      { label: "Live Demo", href: "https://youtu.be/gZWPeWfMphg" },
+      { label: "GitHub Repo / Workflow", href: "https://github.com/g1d33p/portfolio/tree/main/demos/agent-n8n" },
+      { label: "Workflow Spec(In Progress)", href: "/reports/ai-pm-ops-copilot-spec.pdf" },
     ],
   
     heroImage: {
