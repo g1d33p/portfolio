@@ -1,3 +1,4 @@
+// app/projects/[slug]/page.tsx
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllProjects, getProjectBySlug } from "../../../lib/projects";
@@ -27,7 +28,7 @@ export function generateStaticParams() {
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const { slug } = await params; // ✅ unwrap Promise
+  const { slug } = await params;
   const project = getProjectBySlug(slug);
 
   if (!project) return notFound();
@@ -43,6 +44,7 @@ export default async function ProjectPage({ params }: Props) {
           <span className="rounded-full bg-white/10 px-3 py-1">
             {project.type} • {project.year}
           </span>
+
           {project.tags.map((t) => (
             <span
               key={t}
@@ -56,42 +58,53 @@ export default async function ProjectPage({ params }: Props) {
         <h1 className="mt-4 text-3xl font-semibold tracking-tight">
           {project.title}
         </h1>
+
         <p className="mt-3 text-white/70">{project.subtitle}</p>
+
         {project.role ? (
-  <p className="mt-2 text-sm text-white/60">
-    <span className="font-medium text-white/80">Role:</span> {project.role}
-  </p>
-) : null}
+          <p className="mt-2 text-sm text-white/60">
+            <span className="font-medium text-white/80">Role:</span>{" "}
+            {project.role}
+          </p>
+        ) : null}
 
         {project.metrics?.length ? (
-  <div className="mt-6 grid gap-3 sm:grid-cols-2">
-    {project.metrics.slice(0, 4).map((m) => (
-      <div
-        key={m.label}
-        className="rounded-2xl border border-white/10 bg-white/5 p-4"
-      >
-        <div className="text-xs text-white/60">{m.label}</div>
-        <div className="mt-1 text-sm font-medium text-white/85">{m.value}</div>
-      </div>
-    ))}
-  </div>
-) : null}
-
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {project.metrics.slice(0, 4).map((m) => (
+              <div
+                key={m.label}
+                className="rounded-2xl border border-white/10 bg-white/5 p-4"
+              >
+                <div className="text-xs text-white/60">{m.label}</div>
+                <div className="mt-1 text-sm font-medium text-white/85">
+                  {m.value}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </header>
-      {project.heroImage?.src ? (
-  <figure className="mt-6">
-    <img
-      src={project.heroImage.src}
-      alt={project.heroImage.alt ?? project.title}
-      className="w-full rounded-2xl border border-white/10"
-    />
-    {project.heroImage.caption ? (
-      <figcaption className="mt-2 text-xs text-white/50">
-        {project.heroImage.caption}
-      </figcaption>
-    ) : null}
-  </figure>
-) : null}
+
+      {/* ✅ Multiple images support (project.images) */}
+      {project.images?.length ? (
+        <div className="mt-6 space-y-6">
+          {project.images.map((img) => (
+            <figure key={img.src}>
+              <img
+                src={img.src}
+                alt={img.alt ?? project.title}
+                className="w-full rounded-2xl border border-white/10"
+              />
+              {img.caption ? (
+                <figcaption className="mt-2 text-xs text-white/50">
+                  {img.caption}
+                </figcaption>
+              ) : null}
+            </figure>
+          ))}
+        </div>
+      ) : null}
+
       <section className="mt-10 space-y-10">
         <Block title="Problem">
           <p className="text-white/75">{project.problem}</p>
@@ -106,15 +119,14 @@ export default async function ProjectPage({ params }: Props) {
         </Block>
 
         {project.ownership?.length ? (
-  <Block title="What I Owned">
-    <ul className="list-disc space-y-2 pl-5 text-white/75">
-      {project.ownership.map((o) => (
-        <li key={o}>{o}</li>
-      ))}
-    </ul>
-  </Block>
-) : null}
-
+          <Block title="What I Owned">
+            <ul className="list-disc space-y-2 pl-5 text-white/75">
+              {project.ownership.map((o) => (
+                <li key={o}>{o}</li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
 
         <Block title="Impact">
           <ul className="list-disc space-y-2 pl-5 text-white/75">
@@ -125,25 +137,24 @@ export default async function ProjectPage({ params }: Props) {
         </Block>
 
         {project.deployment?.length ? (
-  <Block title="Deployment & Monitoring">
-    <ul className="list-disc space-y-2 pl-5 text-white/75">
-      {project.deployment.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  </Block>
-) : null}
+          <Block title="Deployment & Monitoring">
+            <ul className="list-disc space-y-2 pl-5 text-white/75">
+              {project.deployment.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
 
-{project.risks?.length ? (
-  <Block title="Risks & Tradeoffs">
-    <ul className="list-disc space-y-2 pl-5 text-white/75">
-      {project.risks.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  </Block>
-) : null}
-
+        {project.risks?.length ? (
+          <Block title="Risks & Tradeoffs">
+            <ul className="list-disc space-y-2 pl-5 text-white/75">
+              {project.risks.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
 
         <Block title="Tools">
           <div className="flex flex-wrap gap-2">
@@ -159,27 +170,27 @@ export default async function ProjectPage({ params }: Props) {
         </Block>
 
         {project.links?.length ? (
-  <Block title="Deep Dive">
-    <div className="flex flex-wrap gap-3">
-      {project.links.map((l) => {
-        const isExternal = l.href.startsWith("http");
-        return (
-          <a
-            key={l.href}
-            href={l.href}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noopener noreferrer" : undefined}
-            className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
-          >
-            {l.label}
-          </a>
-        );
-      })}
-    </div>
-  </Block>
-) : null}
-
+          <Block title="Deep Dive">
+            <div className="flex flex-wrap gap-3">
+              {project.links.map((l) => {
+                const isExternal = l.href.startsWith("http");
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+                  >
+                    {l.label}
+                  </a>
+                );
+              })}
+            </div>
+          </Block>
+        ) : null}
       </section>
+
       <ProjectNav currentSlug={slug} />
     </main>
   );
@@ -220,7 +231,9 @@ function ProjectNav({ currentSlug }: { currentSlug: string }) {
         >
           ← {prev.title}
         </Link>
-      ) : <div />}
+      ) : (
+        <div />
+      )}
 
       {next ? (
         <Link
@@ -229,7 +242,9 @@ function ProjectNav({ currentSlug }: { currentSlug: string }) {
         >
           {next.title} →
         </Link>
-      ) : <div />}
+      ) : (
+        <div />
+      )}
     </div>
   );
 }
