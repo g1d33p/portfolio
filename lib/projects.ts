@@ -234,7 +234,7 @@ export const projects: Project[] = [
     links: [
       { label: "Live Demo", href: "https://youtu.be/gZWPeWfMphg" },
       { label: "GitHub Repo / Workflow", href: "https://github.com/g1d33p/portfolio/tree/main/demos/agent-n8n" },
-      { label: "Workflow Spec(In Progress)", href: "/reports/ai-pm-ops-copilot-spec.pdf" },
+      { label: "Workflow Spec", href: "/reports/ai_pm_ops_workflow_spec.pdf" },
     ],
   
     heroImage: {
