@@ -39,3 +39,52 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual envs
+.venv/
+venv/
+env/
+venv_chroma/
+
+# Env / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# --- Node/Next.js ---
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- OS/editor ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- RAG / Vector DB artifacts ---
+**/chroma_db/
+**/chroma_db/**
+
+# If you also store FAISS/Qdrant/etc later:
+**/*.faiss
+**/*.index
+**/*.bin
+
+# --- Large media (use Git LFS or external link) ---
+*.mov
+*.mp4
+*.mkv
+*.zip
