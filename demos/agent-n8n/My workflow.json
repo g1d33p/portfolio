@@ -1,0 +1,330 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Node 1: Form Trigger",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "job_title"
+            },
+            {
+              "fieldLabel": "company"
+            },
+            {
+              "fieldLabel": "job_description",
+              "fieldType": "textarea"
+            },
+            {
+              "fieldLabel": "notes",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "310343a5-60ae-4491-8c38-71ff9d2f1691",
+      "name": "On form submission",
+      "webhookId": "5df443fc-5eb3-4c4f-8d02-a1ac9316e916",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"llama3.1:latest\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Extract structured requirements from this job description.\\n\\nReturn ONLY valid JSON. No markdown. No code fences. No commentary. No TODOs. No trailing commas.\\nAll keys must be double-quoted. All strings must be double-quoted.\\n\\nSchema (must match exactly):\\n{\\\\n  \\\\\\\"must_haves\\\\\\\": [\\\\\\\"...\\\\\\\"],\\\\n  \\\\\\\"nice_to_haves\\\\\\\": [\\\\\\\"...\\\\\\\"],\\\\n  \\\\\\\"responsibilities\\\\\\\": [\\\\\\\"...\\\\\\\"],\\\\n  \\\\\\\"keywords\\\\\\\": [\\\\\\\"...\\\\\\\"],\\\\n  \\\\\\\"seniority\\\\\\\": \\\\\\\"...\\\\\\\",\\\\n  \\\\\\\"domain\\\\\\\": \\\\\\\"...\\\\\\\"\\\\n}\\n\\nJOB TITLE: {{$json.job_title}}\\nCOMPANY: {{$json.company}}\\nJD:\\n{{$json.job_description}}\"\n    }\n  ],\n  \"stream\": false,\n  \"format\": \"json\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "47c4a08f-b660-4ae3-90a4-e130fc3f0c8b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/ask",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"question\": \"You are retrieving evidence about Jeevan Deep Borugadda. Use ONLY the portfolio/resume documents. Provide bullet evidence mapped to the job requirements.\\n\\nRole: {{$node['On form submission'].json.job_title}} at {{$node['On form submission'].json.company}}\\n\\nMust-haves: {{$node['Parse Requirements JSON'].json.requirements.must_haves}}\\nResponsibilities: {{$node['Parse Requirements JSON'].json.requirements.responsibilities}}\\nKeywords: {{$node['Parse Requirements JSON'].json.requirements.keywords}}\\n\\nReturn 8-12 bullets with citations like [1], [2] if possible.\",\n  \"top_k\": 12\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "8a4c0c8a-e8d6-467b-9fad-419b67a3b8b0",
+      "name": "Evidence - RAG"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        224
+      ],
+      "id": "89215363-9a14-4e1a-9ca5-8547c0cfb90e",
+      "name": "Wait",
+      "webhookId": "b0b2f5d1-faa4-4c8e-a57b-6daa6a658f5f"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Robust JSON extraction from Ollama output\nlet raw = $json.message?.content ?? \"\";\n\n// 1) remove markdown fences if present\nraw = raw.replace(/```json/gi, \"\").replace(/```/g, \"\").trim();\n\n// 2) extract the first JSON object block\nconst start = raw.indexOf(\"{\");\nconst end = raw.lastIndexOf(\"}\");\n\nif (start === -1 || end === -1 || end <= start) {\n  return [{ requirements: { error: \"No JSON object found\", raw } }];\n}\n\nconst jsonText = raw.slice(start, end + 1);\n\nlet requirements;\ntry {\n  requirements = JSON.parse(jsonText);\n} catch (e) {\n  return [{ requirements: { error: \"JSON parse failed\", jsonText, raw } }];\n}\n\nreturn [{ requirements }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "0dde5083-e657-45b0-be40-9d544016ee78",
+      "name": "Parse Requirements JSON"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://host.docker.internal:11434/api/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"llama3.1:latest\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"{{$node['Assemble FitGap Prompt'].json.prompt}}\"\n    }\n  ],\n  \"stream\": false\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        224
+      ],
+      "id": "f825a0fd-c299-468e-b6e7-a73cd1e30d66",
+      "name": "FitGap - Ollama"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/chat",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={{ { \"model\": \"llama3.1:latest\", \"messages\": [ { \"role\": \"user\", \"content\": $node[\"Assemble Prompt\"].json.prompt } ], \"stream\": false } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        624,
+        224
+      ],
+      "id": "b59eb2c0-1270-46a3-b105-5ae5db0fb2d0",
+      "name": "Generate Assets - Ollama"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "message.content",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        224
+      ],
+      "id": "9b3dd1d5-3d86-47fb-bf10-954bb406f376",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "jsCode": "const jobTitle = $node[\"On form submission\"].json.job_title || \"\";\nconst company = $node[\"On form submission\"].json.company || \"\";\nconst fitgap = $node[\"FitGap - Ollama\"].json.message?.content || \"\";\nconst evidence = $node[\"Evidence - RAG\"].json.answer || \"\";\nconst citations = $node[\"Evidence - RAG\"].json.citations || [];\n\nconst prompt =\n`You are AI PM Ops Copilot.\n\nTask: Generate final outputs using ONLY the inputs included below.\n\nOUTPUTS REQUIRED:\nA) 4 ATS-friendly resume bullets tailored to this role\nB) 120-word LinkedIn outreach message\nC) 6 interview questions + 1-line STAR pointers\n\nRULES:\n- Do NOT invent experience.\n- Each resume bullet must include at least one citation like [1].\n- If a requirement is a GAP, write a learning-plan bullet instead.\n\nROLE:\nJob Title: ${jobTitle}\nCompany: ${company}\n\nFIT/GAP TABLE:\n${fitgap}\n\nEVIDENCE (RAG answer):\n${evidence}\n\nCITATIONS (JSON):\n${JSON.stringify(citations, null, 2)}\n`;\n\nreturn [{ prompt }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        224
+      ],
+      "id": "ed86aaab-def3-4f3f-8e2c-30d980753306",
+      "name": "Assemble Prompt"
+    },
+    {
+      "parameters": {
+        "jsCode": "const req = $node[\"Parse Requirements JSON\"].json.requirements || {};\nconst evidence = $node[\"Evidence - RAG\"].json.answer || \"\";\nconst citations = $node[\"Evidence - RAG\"].json.citations || [];\n\nconst prompt =\n`Build a Fit/Gap matrix for Jeevan Deep Borugadda.\n\nRules:\n- Use ONLY the EVIDENCE below when claiming experience.\n- If evidence is missing, mark it as GAP.\n- Output a Markdown table with columns:\n  Requirement | Evidence (with citations like [1]) | Fit (High/Med/Low) | Gap Notes | Suggested Resume Bullet\n\nREQUIREMENTS JSON:\n${JSON.stringify(req, null, 2)}\n\nEVIDENCE (RAG answer):\n${evidence}\n\nCITATIONS (JSON):\n${JSON.stringify(citations, null, 2)}\n`;\n\nreturn [{ prompt }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        0
+      ],
+      "id": "2e7a2549-820d-41a0-af10-a5b2aa9b18ba",
+      "name": "Assemble FitGap Prompt"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "{{$node[\"Generate Assets - Ollama\"].json.message.content}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        448
+      ],
+      "id": "c30d7f37-0e69-4bff-a061-56cee7e210ee",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Parse Requirements JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evidence - RAG": {
+      "main": [
+        [
+          {
+            "node": "Assemble FitGap Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Assemble Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Requirements JSON": {
+      "main": [
+        [
+          {
+            "node": "Evidence - RAG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FitGap - Ollama": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Assets - Ollama": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assemble Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Assets - Ollama",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assemble FitGap Prompt": {
+      "main": [
+        [
+          {
+            "node": "FitGap - Ollama",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a1a6b1ec-e596-4c17-8d0f-7f5975c30a90",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4548f6a4a801df5ad48e6fca94f210225d5e019731d78c3d5611786b07065b1f"
+  },
+  "id": "nFxYxOH3sLMxHpvw",
+  "tags": []
+}
