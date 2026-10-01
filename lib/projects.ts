@@ -271,6 +271,86 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "autonomous-desktop-agent",
+    title: "Multi-Modal Autonomous Agent & Desktop OS",
+    subtitle:
+      "Local-first voice and desktop orchestration engine integrating LiveKit, Google Gemini Live, Hermes Agent, and macOS system automation with strict Human-in-the-Loop governance.",
+    year: "2026",
+    type: "Agentic AI",
+    tags: [
+      "Autonomous Agents",
+      "LiveKit",
+      "Google Gemini Live",
+      "macOS Automation",
+      "HITL Governance",
+      "System Design",
+    ],
+    flagship: false,
+    featured: true,
+    spotlight: false,
+    featuredTag: "Agents • Voice & Desktop OS",
+    featuredOutcome:
+      "Architected a local-first multi-modal agent system combining real-time streaming voice (<600ms latency), persistent browser automation, and macOS desktop orchestration operating at zero idle cost.",
+
+    problem:
+      "Commercial AI assistants operate as rigid cloud SaaS silos lacking system-level desktop access, leaking sensitive context across networks, incurring high recurring infrastructure costs, and lacking verifiable guardrails when executing consequential actions.",
+
+    metrics: [
+      { label: "Voice latency", value: "< 600ms streaming (LiveKit + Gemini)" },
+      { label: "Idle cost", value: "$0 (local edge execution)" },
+      { label: "Active operating cost", value: "< $10/mo (lightweight routing)" },
+      { label: "Governance", value: "100% HITL on external actions" },
+      { label: "Multi-channel access", value: "Voice hotkey, WhatsApp, CLI" },
+    ],
+
+    approach: [
+      "Architected a local-first, privacy-preserving agent runtime leveraging LiveKit Agents framework and Google Gemini Live for bidirectional, low-latency audio streaming.",
+      "Engineered a native Swift background daemon monitoring global hardware keycodes (Right Command double-tap) to trigger instant push-to-talk voice capture without window focus.",
+      "Built persistent Playwright browser automation with authenticated profiles, enabling headless WhatsApp Web monitoring and messaging via background launchd daemons.",
+      "Integrated native macOS automation via AppleScript and Python to orchestrate Calendar, Mail, Reminders, and filesystem workflows with automatic classification.",
+      "Enforced strict Human-in-the-Loop (HITL) safety architecture: zero permanent file deletions, mandatory user confirmation before sending communications, and tool-enforced verification.",
+      "Implemented multi-model failover routing: streaming Gemini Live for conversational voice, lightweight Gemini Flash Lite for batch triage, and local Ollama for zero-connectivity offline fallback.",
+    ],
+
+    deployment: [
+      "Runs locally as native macOS launchd daemons (com.jeevan.rightcmdlistener, com.jeevan.whatsappwatcher) ensuring 24/7 background availability with minimal memory footprint.",
+      "Multi-client support across terminal console mode, Next.js web frontend, and Flutter mobile client.",
+      "Configured automated cron triggers for morning executive briefings, daytime inbox triage, and overnight reflections.",
+    ],
+
+    risks: [
+      "Consequential action risks mitigated through strict approval boundaries where agent proposes actions but requires explicit user confirmation.",
+      "System sleep limitations handled via hybrid architecture separating heavy local tasks from lightweight messaging alerts.",
+    ],
+
+    impact: [
+      "Delivered an always-on, hands-free personal operating system managing cross-stream non-profit operations, calendar commitments, and inbox sorting.",
+      "Eliminates context-switching friction by executing tasks via voice and WhatsApp on the go.",
+      "Demonstrates advanced 0-to-1 AI product delivery, hardware/software integration, and cost-optimized system architecture.",
+    ],
+
+    tools: [
+      "Python",
+      "Swift",
+      "LiveKit",
+      "Google Gemini Live",
+      "Hermes Agent",
+      "Playwright",
+      "AppleScript",
+      "Next.js",
+    ],
+
+    links: [
+      {
+        label: "GitHub Repository",
+        href: "https://github.com/g1d33p/jarvis-voice-butler",
+      },
+    ],
+
+    images: [],
+  },
+
+  {
     slug: "enterprise-ai-recruiting-agent",
     title: "Enterprise AI Recruiting Agent (Autonomous Talent Pipeline)",
     subtitle:
