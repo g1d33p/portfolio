@@ -17,15 +17,14 @@ export default function HomePage() {
       
       <div className="flex flex-wrap gap-2">
         <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-          AI Product / Project Management
+          AI Technical Program Management
         </span>
         <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-  RAG • Agents • Evals
-</span>
-        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
-        PMP Delivery Rigor
+          RAG • Agents • Evals
         </span>
-
+        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70">
+          PMP® Delivery Rigor
+        </span>
       </div>
 
       <h1 className="mt-8 text-5xl font-semibold leading-[1.10] tracking-tight md:text-6xl">
@@ -33,9 +32,9 @@ export default function HomePage() {
         <span className="text-white/70">deployment</span>
       </h1>
 
-      <p className="mt-8 max-w-xl text-[14px] leading-[1.65] text-white/70"><i>
-  I align stakeholders, model strategy, and delivery plans so teams actually use the system — not just admire dashboards.</i>
-</p>
+      <p className="mt-8 max-w-xl text-[14px] leading-[1.65] text-white/70">
+        8+ years of combined program delivery, operations, and leadership experience leading multi-workstream AI/ML, GenAI, and data-platform initiatives across engineering, data, and business teams.
+      </p>
 
 
       <div className="mt-8 flex flex-wrap gap-3">
@@ -183,7 +182,7 @@ export default function HomePage() {
     <div>
       <h2 className="text-2xl font-semibold">Other Work</h2>
       <p className="mt-2 text-white/70">
-        Additional projects that show range across analytics, BI, and decision support.
+        Additional systems across agentic workflows, talent automation, and predictive decision support.
       </p>
     </div>
     <a href="/projects" className="text-sm text-white/70 hover:text-white">
@@ -215,16 +214,16 @@ export default function HomePage() {
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <LeadershipCard
-            title="PMP Certified"
+            title="PMP® Certified"
             description="Servant leadership minded, Business vision driven. Applies structured risk thinking, stakeholder mapping, and delivery planning principles across AI and analytics work."
           />
           <LeadershipCard
-            title="Leading IT Teams"
-            description="Lead and mentored teams of size 3-12 at Amazon, TCS and Wipro Ltd."
+            title="Multi-Workstream Delivery"
+            description="Lead multi-workstream AI/ML program delivery coordinating a 35+ member PM team and 500+ global contributors at Saayam For All; 0-to-1 AI product delivery at Paisa Agent; previously at TCS, Wipro, and Amazon."
           />
           <LeadershipCard
-            title="Events Planning & Coordination"
-            description="Coordinated multiple vendors, logistics, timelines, and expectations for multiple high-stake multi-stakeholder events, managing more than ~300 people per event"
+            title="Anno Domini Band Lead"
+            description="Led a 30–40 member student band coordinating people, schedules, rehearsals, logistics, and intercollegiate competitions."
           />
         </div>
       </section>
@@ -234,7 +233,7 @@ export default function HomePage() {
   <div className="rounded-3xl border border-white/10 bg-white/5 p-10">
     <h2 className="text-2xl font-semibold">Contact</h2>
     <p className="mt-2 text-white/60">
-  Open to AI Project Manager, AI Product, and Analytics Delivery roles.
+  Open to AI Technical Program Manager, AI Product Manager, and Analytics Delivery roles.
 </p>
 
     {/* Contact details */}

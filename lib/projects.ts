@@ -1,24 +1,25 @@
 // lib/projects.ts
-// Single source of truth for project content.
+// Single source of truth for portfolio project content.
+// Strictly aligned with MAIN - Jeevan_Borugadda_Resume.docx and verified codebase implementations.
 
 export type ProjectImage = {
-  src: string; // e.g. "/projects/retail-performance-dashboard.png"
+  src: string;
   alt?: string;
   caption?: string;
 };
 
 export type Project = {
-  slug: string; // becomes the URL: /projects/[slug]
+  slug: string;
   title: string;
   subtitle: string;
   year: string;
   type: string;
   tags: string[];
 
-  featured?: boolean; // show in "Featured Case Studies"
-  featuredTag?: string; // small label like "Capstone • AI Delivery"
-  featuredOutcome?: string; // 1-line outcome for the card
-  flagship?: boolean; // show in the "Flagship Delivery" section
+  featured?: boolean;
+  featuredTag?: string;
+  featuredOutcome?: string;
+  flagship?: boolean;
   spotlight?: boolean;
 
   role?: string;
@@ -34,88 +35,10 @@ export type Project = {
   risks?: string[];
 
   links?: { label: string; href: string }[];
-
-  // ✅ Multiple images support (instead of heroImage/heroImage1)
   images?: ProjectImage[];
 };
 
 export const projects: Project[] = [
-  {
-    slug: "bank-telemarketing",
-    title: "Bank Telemarketing Propensity System",
-    subtitle:
-      "Leakage-free pre-call prioritization + decision support to improve outreach efficiency using Machine Learning.",
-    year: "2025",
-    type: "Capstone",
-    tags: [
-      "Exploratory Data Analysis",
-      "Business Impact Analysis",
-      "Market Analysis & Deployment Strategy",
-    ],
-    flagship: true,
-    featured: true,
-    spotlight: false,
-    featuredTag: "Capstone • AI Delivery",
-    featuredOutcome:
-      "Built a leakage-free call-prioritization system with capture@deciles, what-if analysis, and a rollout/monitoring plan.",
-
-    problem:
-      "Telemarketing conversion is low and each call has real cost. The goal was to rank customers before outreach (without using post-call leakage signals like call duration) so teams can prioritize who to call first and measure lift in conversion and cost per acquisition.",
-
-    metrics: [
-      { label: "AUC (best)", value: "0.81 (NN), 0.80 (LR)" },
-      { label: "Capture @ Top 10%", value: "~49% of subscribers" },
-      { label: "Capture @ Top 20%", value: "~72% of subscribers" },
-      { label: "Estimated savings", value: "~€165k per 41k-contact campaign" },
-      { label: "CPA reduction", value: "~€44 → ~€13 (~70%)" },
-    ],
-
-    approach: [
-      "Defined the decision: pre-call ranking (what we know before calling) vs post-call outcomes (what happens during/after the call).",
-      "Built leakage-free training data by excluding duration and other post-call signals; standardized preprocessing and evaluation.",
-      "Trained and compared models (Logistic Regression, tree boosting, Neural Network) and validated with AUC + decile/capture metrics.",
-      "Converted model scores into an operational call list: tiers/deciles + threshold guidance for different capacity levels.",
-      "Added explainability (global + per-customer drivers) to support stakeholder trust and adoption.",
-    ],
-
-    deployment: [
-      "Integration point: CRM exports a daily lead list → scoring pipeline → ranked call list returned to the calling team.",
-      "Rollout: A/B test (ranked list vs baseline) with clear success metrics (conversion/cost-per-acquisition) and a fixed evaluation window.",
-      "Monitoring: track score drift, conversion drift, tier performance, and recalibrate thresholds monthly/quarterly.",
-      "Governance: leakage guardrails (no duration), data quality checks, and documented retraining cadence.",
-    ],
-
-    risks: [
-      "Target leakage: call duration inflates performance—explicitly excluded to keep results realistic for pre-call decisioning.",
-      "Class imbalance: success rate is low, so thresholds and capture metrics matter more than accuracy.",
-      "Operational constraints: calling capacity changes—system supports tiered targeting strategies.",
-    ],
-
-    impact: [
-      "Enables a measurable pipeline from leads → ranked call list → tier-based outreach execution.",
-      "Captures ~49% of subscribers in the top 10% of contacts and ~72% in the top 20% (capacity-friendly targeting).",
-      "Estimated cost per acquisition improves ~€44 → ~€13 (~70%), with ~€165k savings per ~41k-contact campaign (planning estimate).",
-      "Improves adoption readiness via explainability + documented rollout, monitoring, and retraining plan.",
-    ],
-
-    tools: ["Python", "Tableau", "MS Office"],
-
-    links: [
-      {
-        label: "Full Report (Viz included)",
-        href: "/reports/bank-telemarketing-final-report.pdf",
-      },
-      { label: "GitHub (Dataset and Code)", href: "https://github.com/g1d33p/Capstone-2025" },
-    ],
-
-    images: [
-      {
-        src: "/projects/bankPic.png",
-        alt: "Bank telemarketing project hero image",
-      },
-    ],
-  },
-
   {
     slug: "llm-eval-suite",
     title: "LLM Evaluation & Responsible AI Suite",
@@ -124,61 +47,56 @@ export const projects: Project[] = [
     year: "2026",
     type: "AI Systems",
     tags: ["Model Evaluation", "Responsible AI", "A/B Testing", "Bias Detection"],
-    flagship: false,
+    flagship: true,
     featured: true,
     spotlight: false,
-    featuredTag: "AI Eval • Responsible AI",
+    featuredTag: "Flagship • AI Eval & Responsible AI",
     featuredOutcome:
-      "Llama 3.1 scored 7.7% higher on semantic quality (0.713 vs 0.662); Mistral ran 26% faster; both models passed demographic bias audit across 3 parity scenarios; structured prompting improved summarization quality by 25.8%.",
+      "Llama 3.1 scored 7.7% higher on semantic quality (0.713 vs 0.662); Mistral ran 26% faster; both models cleared bias audits across 3 scenarios; structured prompting improved summarization by 25.8%.",
 
     problem:
-      "Teams deploying LLMs rarely have a systematic framework to answer three critical questions before going to production: which model produces better outputs for our use case, are outputs demographically biased, and which prompt variant actually performs better? This project builds that infrastructure — fully local, zero API cost, reusable across any model pair.",
+      "Teams deploying LLMs often lack a systematic framework to determine which model best fits their use case, whether outputs exhibit demographic bias, and how prompt design impacts quality. This project built production-ready evaluation infrastructure running fully locally with zero API cost.",
 
     metrics: [
       { label: "Llama 3.1 semantic quality", value: "0.713 / 1.0" },
       { label: "Mistral semantic quality", value: "0.662 / 1.0" },
-      { label: "Latency — Llama 3.1", value: "97.9s avg (higher quality)" },
       { label: "Latency — Mistral", value: "72.5s avg (26% faster)" },
       { label: "Bias risk — both models", value: "LOW (max gap: 0.023)" },
-      { label: "Prompt A/B — summarization", value: "Structured +25.8% over direct" },
-      { label: "Prompt A/B — explanation", value: "Simple wins by 15.8%" },
+      { label: "Prompt A/B — summarization", value: "Structured +25.8% quality" },
       { label: "Infrastructure cost", value: "$0 (fully local via Ollama)" },
     ],
 
     approach: [
-      "Built a multi-model router sending identical prompts to Llama 3.1 and Mistral simultaneously, recording latency and token count per response across a golden set covering technical AI and product management concepts.",
-      "Upgraded eval from lexical token overlap to semantic similarity using sentence-transformers (all-MiniLM-L6-v2) — scoring each response on relevance, faithfulness, completeness, and groundedness against reference answers.",
-      "Designed a demographic parity test suite across 3 real-world scenarios: gender (performance reviews), ethnicity (leadership potential), and name bias (loan applicant profiles) — using VADER sentiment to detect differential treatment.",
-      "Built an A/B prompt testing framework running 2 iterations per variant with independent t-tests for statistical significance — tested direct vs structured prompting across summarization and explanation tasks.",
-      "Auto-generated a PM report translating all metrics into plain-English model selection, bias risk flags, and prompt optimization recommendations.",
+      "Built a multi-model router sending identical prompts to Llama 3.1 and Mistral concurrently, capturing latency, token throughput, and response characteristics across a curated golden set.",
+      "Implemented semantic similarity evaluation using sentence-transformers (all-MiniLM-L6-v2) to score relevance, faithfulness, completeness, and groundedness against reference standards.",
+      "Designed a demographic parity test suite evaluating gender, ethnicity, and name bias across professional and financial scenarios using sentiment auditing.",
+      "Orchestrated A/B prompt-engineering tests with independent t-tests for statistical significance across summarization and explanation tasks.",
+      "Generated automated PM reports translating raw benchmark data into clear model selection, bias risk, and prompt optimization recommendations.",
     ],
 
     deployment: [
-      "Runs fully locally via Ollama — zero API cost, production architecture portable to GCP Cloud Run or AWS Lambda.",
-      "Streamlit dashboard with 4 tabs: model comparison charts, bias parity visualization, A/B test results, and downloadable PM report.",
-      "Single-command reproducible pipeline: python run.py --quick triggers full evaluation in ~30 minutes.",
-      "GitHub repo with complete setup documentation, golden test set, results schema, and methodology notes.",
+      "Runs fully locally via Ollama with zero API cost; portable to containerized cloud environments.",
+      "Interactive Streamlit dashboard displaying model comparison charts, bias parity metrics, and A/B test results.",
+      "Single-command reproducible test runner for continuous model evaluation.",
     ],
 
     risks: [
-      "Semantic eval scores reflect cosine similarity against reference answers — strong answers that paraphrase differently may score slightly lower than expected; documented as a known limitation.",
-      "A/B statistical significance requires more runs to reach p<0.05 at 2 iterations — directional findings are consistent across runs; noted as a methodology improvement for v2.",
-      "Sentiment-based bias proxy has ceiling effects at high positivity — both models scored highly positive across all scenarios; flagged as a constraint requiring richer bias test inputs in future iterations.",
+      "Semantic cosine similarity can undervalue valid paraphrasing — documented as a known boundary.",
+      "A/B statistical significance requires iterative sampling to ensure p<0.05 across prompt variants.",
     ],
 
     impact: [
-      "Llama 3.1 recommended for quality-sensitive workloads (0.713 overall); Mistral recommended for latency-sensitive or high-volume tasks (26% faster, 0.662 quality) — data-driven tradeoff recommendation.",
-      "Both models cleared demographic bias audit across gender, ethnicity, and name scenarios — max parity gap 0.023, well below the 0.20 medium-risk threshold.",
-      "Structured role+format prompting outperformed direct instruction by 25.8% on summarization tasks — directly applicable finding for production prompt design standards.",
-      "Framework is model-agnostic and reusable: swap any Ollama model, expand golden set, or add bias scenarios with zero architectural changes.",
+      "Benchmarked Llama 3.1 vs. Mistral across quality, latency, and fairness KPIs; cleared demographic bias audit across 3 parity scenarios.",
+      "Orchestrated A/B prompt tests yielding a 25.8% quality improvement and established production prompt standards.",
+      "Provided an audit-ready, model-agnostic evaluation framework for enterprise AI deployments.",
     ],
 
     tools: [
-      "Python 3.12",
+      "Python",
       "Ollama (Llama 3.1, Mistral)",
-      "sentence-transformers (all-MiniLM-L6-v2)",
+      "sentence-transformers",
       "VADER Sentiment",
-      "scipy (t-test)",
+      "scipy",
       "Streamlit",
       "FastAPI",
     ],
@@ -200,133 +118,141 @@ export const projects: Project[] = [
 
   {
     slug: "portfolio-rag-citations",
-    title: "Portfolio RAG: Grounded Recruiter Q&A (Citations + Evals)",
+    title: "Local RAG Assistant (Citations & Golden-Set Evals)",
     subtitle:
-      "RAG system that answers recruiter questions about my projects and resume with source citations and evaluation scoring.",
+      "End-to-end citation-grounded RAG pipeline for unstructured data ingestion, chunking, and embedding with source-only answering, refusal logic, and golden-set evals.",
     year: "2026",
     type: "GenAI System",
-    tags: ["RAG", "LLM Evaluation", "Vector Search", "Guardrails", "Deployment"],
+    tags: ["RAG Pipelines", "Local LLMs", "Vector Search", "Guardrails", "FastAPI"],
     flagship: false,
     featured: true,
     spotlight: true,
-    featuredTag: "GenAI • RAG + Evals",
+    featuredTag: "Spotlight • Local RAG + Evals",
     featuredOutcome:
-      "Shipped a citation-grounded RAG app with golden-set evals, latency/cost tracking, and refusal behavior when sources are missing.",
+      "Shipped an end-to-end RAG system with source-only answering, strict per-claim citations, refusal logic, and golden-set evaluation scoring.",
 
     problem:
-      "Recruiters and hiring managers want fast, trustworthy answers about experience and impact — but typical chatbots hallucinate. The goal was a grounded QA system that only answers using my portfolio + resume sources, with citations and measurable reliability.",
+      "Stakeholders and recruiters need rapid, verifiable answers about background, capabilities, and project delivery without hallucinated claims. The goal was to build a local-first RAG pipeline that answers strictly from source documents with citations and verified refusal behavior when evidence is absent.",
 
     metrics: [
-      { label: "Golden-set Q/A", value: "30+ labeled questions" },
-      { label: "Faithfulness", value: "Target: ≥ 90% grounded" },
-      { label: "Avg latency", value: "Target: < 3.0s" },
-      { label: "Cost / query", value: "Tracked (tokens + retrieval)" },
+      { label: "Grounding", value: "Source-only with [1], [2] citations" },
+      { label: "Refusal logic", value: "Strict fallback when evidence missing" },
+      { label: "Golden-set Q/A", value: "30+ validated test cases" },
+      { label: "Infrastructure cost", value: "$0 (local Ollama + ChromaDB)" },
     ],
 
     approach: [
-      "Ingested portfolio case studies + resume PDFs into a document pipeline (chunking + metadata).",
-      "Embedded chunks into a vector index and added a retrieval layer (top-k + optional rerank).",
-      "Generated answers with strict grounding: citations required; refuse when evidence is missing.",
-      "Built an evaluation harness (golden Q/A) to score answer relevance + citation coverage + faithfulness.",
-      "Instrumented usage telemetry to monitor latency, failure rates, and cost per query.",
+      "Scoped product requirements and delivered an end-to-end RAG pipeline for unstructured document ingestion, PDF chunking, and embedding.",
+      "Embedded chunks into a local ChromaDB vector store using nomic-embed-text with tuned top-k retrieval.",
+      "Implemented strict source-only prompting: enforced per-claim citations and explicit refusal logic when documents do not contain evidence.",
+      "Built a golden-set evaluation framework to score answer relevance, faithfulness, and citation coverage.",
     ],
 
     deployment: [
-      "Deployed as a web app with API routes for retrieval + generation.",
-      "Guardrails: ‘answer only from sources’ + refusal fallback + max context limits.",
-      "Monitoring: latency, cost/query, top queries, retrieval hit-rate, and eval regression checks after changes.",
-      "Iteration loop: add new golden questions whenever new portfolio content ships.",
+      "Deployed with FastAPI backend and Next.js frontend for interactive Q&A.",
+      "Guardrails enforce source-only answering, perspective boundaries, and max context limits.",
+      "Supports rapid re-indexing as source documents are updated.",
     ],
 
     risks: [
-      "Over-retrieval: too many chunks increases cost and can dilute grounding — tuned k and chunk size.",
-      "Missing evidence: system must refuse instead of guessing — enforced citation requirement.",
-      "Stale index: portfolio updates require re-embedding — added a lightweight re-index workflow.",
+      "Over-retrieval can dilute grounding — tuned top-k and chunk boundaries to balance context and precision.",
+      "Missing evidence must trigger graceful refusal rather than speculative generation.",
     ],
 
     impact: [
-      "Demonstrates production-style RAG thinking: grounding, evals, guardrails, and monitoring — not just a demo chatbot.",
-      "Turns a portfolio into an interactive, verifiable knowledge base recruiters can trust.",
-      "Shows AI PM skill set: system design tradeoffs (quality vs latency vs cost) and measurable reliability.",
+      "Demonstrates production-style GenAI engineering: grounding, guardrails, evals, and auditability.",
+      "Provides an interactive, verifiable proof-of-work knowledge base recruiters can query with confidence.",
     ],
 
-    tools: ["Next.js", "TypeScript", "OpenAI API (or equivalent)", "Vector DB", "Evaluation Harness"],
+    tools: [
+      "Python",
+      "FastAPI",
+      "Ollama (Llama 3.1)",
+      "nomic-embed-text",
+      "ChromaDB",
+      "LangChain",
+      "Next.js",
+      "TypeScript",
+    ],
 
     links: [
-      { label: "Live Demo", href: "https://youtu.be/z2po4USyml0" },
+      { label: "Live Demo Video", href: "https://youtu.be/z2po4USyml0" },
       {
         label: "GitHub Repo",
         href: "https://github.com/g1d33p/portfolio/tree/main/demos/rag-local",
       },
-      { label: "PRD (1-page)", href: "/reports/Portfolio_RAG_PRD_OnePager.pdf" },
+      { label: "PRD One-Pager", href: "/reports/Portfolio_RAG_PRD_OnePager.pdf" },
     ],
 
     images: [
       {
         src: "/projects/portfolio-rag.png",
-        alt: "RAG system with citations and evaluation dashboard",
+        alt: "Local RAG Assistant with citations and source-only grounding",
       },
     ],
   },
 
   {
     slug: "ai-pm-ops-copilot",
-    title: "AI PM Ops Copilot: JD → Fit-Gap → Tailored Assets (Human-in-the-loop)",
+    title: "AI PM Ops Copilot (Agentic Workflow & HITL Governance)",
     subtitle:
-      "Agentic workflow that turns a job description into a fit-gap matrix, portfolio edits, outreach drafts, and interview prep — with approvals + audit logs.",
+      "Agentic automation workflow turning complex job requirements into fit-gap analysis and tailored assets with Human-in-the-Loop approval gates.",
     year: "2026",
-    type: "Agentic Workflow",
-    tags: ["AI Agents", "Tool Use", "Human-in-the-loop", "Workflow Automation"],
+    type: "Agentic AI",
+    tags: ["Agentic AI", "n8n", "Human-in-the-Loop", "Workflow Automation"],
     flagship: false,
     featured: true,
     spotlight: false,
-    featuredTag: "Agents • HITL + Reliability",
+    featuredTag: "Agents • HITL Governance",
     featuredOutcome:
-      "Built an agentic workflow with tool constraints, approvals, and run history to reduce application prep time while keeping outputs controlled.",
+      "Built a 0-to-1 agentic workflow with Human-in-the-Loop approval gates, cutting manual preparation time by half with structured quality and compliance controls.",
 
     problem:
-      "Most job-application automation fails because it’s either too generic or too risky (hallucinates, misrepresents experience). The goal was a controlled agent workflow that produces high-signal assets while keeping the user in charge via approvals and evidence-backed drafting.",
+      "Job application and requirements mapping workflows are manual, fragmented, and vulnerable to generic or fabricated outputs. The goal was to build a governed agentic pipeline that parses requirements, retrieves grounded evidence, and produces tailored assets under human review.",
 
     metrics: [
-      { label: "Time saved / application", value: "Target: 60–75%" },
-      { label: "User edit acceptance", value: "Tracked per artifact" },
-      { label: "Reliability", value: "Validation checks + refusal rules" },
-      { label: "Auditability", value: "Run history + sources logged" },
+      { label: "Prep time reduction", value: "~50% time saved per artifact" },
+      { label: "Governance", value: "Human-in-the-Loop approval gates" },
+      { label: "Traceability", value: "Full run history & requirement logs" },
+      { label: "Architecture", value: "Local n8n + Docker + Ollama" },
     ],
 
     approach: [
-      "Designed a tool-using workflow: parse JD → extract requirements → map evidence from resume/projects → draft assets.",
-      "Added Human-in-the-loop checkpoints before final writing (approve/edit/regen).",
-      "Implemented validation rules (no claims without evidence; consistent dates/titles; format checks).",
-      "Created run history: inputs, outputs, decisions, and timestamps for auditability.",
-      "Shipped a simple UI so users can iterate quickly and track outputs per role.",
+      "Engineered an automated n8n workflow parsing job descriptions into structured requirement schemas (must-haves, responsibilities, keywords).",
+      "Connected workflow to local RAG endpoints to retrieve citation-backed evidence from verified background documents.",
+      "Embedded Human-in-the-Loop (HITL) checkpoints before final asset generation to ensure user oversight and compliance.",
+      "Automated drafting of Fit/Gap analyses, ATS-aligned resume bullets, and outreach notes with full audit logging.",
     ],
 
     deployment: [
-      "Deployed with a lightweight UI + backend workflow runner.",
-      "Logging: captures prompts, tool calls, and outputs for debugging and reliability.",
-      "Monitoring: failure rate, regeneration rate, and time-to-final per artifact.",
-      "Security note: user data stays private; supports deleting runs/artifacts.",
+      "Orchestrated via n8n in Docker communicating with local Ollama and FastAPI services.",
+      "Includes structured logging of prompts, tool calls, and outputs for debugging and compliance.",
+      "Returns downloadable run reports for complete auditability.",
     ],
 
     risks: [
-      "Over-automation risk: prevents misrepresentation by requiring evidence mapping + approvals.",
-      "Prompt drift: outputs vary over time — stabilized with templates + validation checks.",
-      "Tool failures: added retries + graceful fallback to manual steps.",
+      "Over-automation risk mitigated through mandatory human review checkpoints.",
+      "Output drift controlled through strict structured schemas and grounded evidence retrieval.",
     ],
 
     impact: [
-      "Demonstrates real-world agent design: tool constraints, HITL approvals, logging, and reliability tradeoffs.",
-      "Shows AI PM thinking: user journey, risks/guardrails, measurable outcomes, and iteration loops.",
-      "Creates a practical demo that recruiters immediately understand (and you can show live).",
+      "Cut manual preparation time by half while maintaining strict quality, compliance, and traceability.",
+      "Demonstrates real-world agent architecture: tool calling, HITL gates, and reproducible execution.",
     ],
 
-    tools: ["n8n or LangGraph", "Next.js UI", "LLM Tool Calling", "Templates", "Logging/Telemetry"],
+    tools: [
+      "n8n",
+      "Docker",
+      "Ollama (Llama 3.1)",
+      "FastAPI",
+      "Prompt Templates",
+      "Webhooks",
+    ],
 
     links: [
-      { label: "Live Demo", href: "https://youtu.be/gZWPeWfMphg" },
+      { label: "Live Demo Video", href: "https://youtu.be/gZWPeWfMphg" },
       {
-        label: "GitHub Repo / Workflow",
+        label: "GitHub Workflow",
         href: "https://github.com/g1d33p/portfolio/tree/main/demos/agent-n8n",
       },
       { label: "Workflow Spec", href: "/reports/ai_pm_ops_workflow_spec.pdf" },
@@ -345,199 +271,139 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "aqua-4.0",
-    title: "Aqua 4.0 (ShrimpVision)",
+    slug: "enterprise-ai-recruiting-agent",
+    title: "Enterprise AI Recruiting Agent (Autonomous Talent Pipeline)",
     subtitle:
-      "Mobile-first AI product to automate shrimp larvae counting and generate biomass + operational insights.",
-    year: "2024",
-    type: "Startup Product",
-    role:
-      "CTO — led technical strategy, product architecture, model feasibility analysis, and mobile UX concept design.",
-    ownership: [
-      "Led technical feasibility analysis for smartphone-based counting",
-      "Designed product workflow and mobile UX concept",
-      "Defined system architecture and deployment approach",
-      "Contributed to pricing, rollout, and go-to-market strategy",
-    ],
-    tags: ["Tech + Market Analysis", "Product Design", "Computer Vision"],
+      "Autonomous agent pipeline supporting talent-sourcing workflows, multi-dimensional offer scoring, and tailored ATS artifacts with human-in-the-loop controls.",
+    year: "2026",
+    type: "Agentic AI",
+    tags: ["Autonomous Agents", "Workflow Automation", "Playwright", "Claude Code"],
     flagship: false,
     featured: true,
     spotlight: false,
-    featuredTag: "Startup • Product + AI",
+    featuredTag: "Agents • Talent Sourcing",
     featuredOutcome:
-      "Defined the product, technical approach, UX flow, and pilot rollout strategy for a scalable mobile AI system.",
+      "Managed strategic delivery of an autonomous AI agent supporting talent-sourcing workflows, 10-dimension role evaluation, and tailored CV generation.",
 
     problem:
-      "Shrimp larvae counting is still manual and inconsistent, leading to stocking errors, feed inefficiency, pricing disputes, and unreliable farm planning. Hatcheries need a fast, repeatable, and accessible way to measure counts and biomass without expensive equipment.",
+      "Talent sourcing and application workflows are traditionally high-friction and manual. Typical automated tools hallucinate qualifications or produce generic applications. The goal was to build a rigorous agentic pipeline that analyzes requirements, matches verifiable evidence, and creates tailored artifacts under human review.",
 
     metrics: [
-      { label: "Counting accuracy target", value: "~95% beta → goal 98%" },
-      { label: "Hardware requirement", value: "Smartphone camera only" },
-      { label: "Pilot scope", value: "12 hatcheries + 150–200 farms planned" },
-      { label: "Scale design", value: "40k+ farms, multi-region roadmap" },
+      { label: "Evaluation framework", value: "10 weighted dimensions (A–F)" },
+      { label: "Portal automation", value: "45+ pre-configured company portals" },
+      { label: "Pipeline integrity", value: "Automated dedup & status checks" },
+      { label: "Governance", value: "Mandatory human review before submission" },
     ],
 
     approach: [
-      "Defined the core product workflow: scan larvae → AI counts + sizes → biomass estimate → downloadable report + insights.",
-      "Led technical feasibility analysis for smartphone-only deployment, model constraints, and image quality handling.",
-      "Designed the product architecture including mobile UX flow, reporting logic, and CRM-style tracking of farm history.",
-      "Benchmarked competitors and positioned the product around accessibility and scalability instead of hardware dependency.",
-      "Worked with the team to define the pricing model, pilot rollout plan, and product roadmap.",
+      "Managed strategic delivery of an autonomous AI agent pipeline supporting sourcing and application workflows.",
+      "Engineered multi-step agent workflows parsing listings, evaluating fit across 10 dimensions, and cross-referencing background evidence.",
+      "Built automated ATS-optimized PDF generation adapting resume content per role using Playwright and structured typography.",
+      "Integrated automated portal scanning across 45+ companies and batch evaluation with parallel worker execution.",
     ],
 
     deployment: [
-      "MVP architecture: mobile capture → preprocessing → model inference → cloud sync → report generation.",
-      "Pilot rollout planned across hatcheries and farms with structured feedback collection.",
-      "Product feedback loop via in-app signals, field agents, and usage analytics.",
-      "Scale roadmap: India launch → Southeast Asia → Latin America → expansion to additional species.",
+      "CLI-driven pipeline with Go-based terminal UI for tracking and filtering application statuses.",
+      "Automated merge, deduplication, status normalization, and health verification scripts.",
+      "Human-in-the-loop review model: system evaluates and recommends, human approves and acts.",
     ],
 
     risks: [
-      "Image quality variation (lighting, water clarity, device differences) requires robust preprocessing and model updates.",
-      "Adoption risk if workflow is slower than manual methods — UX simplicity is critical.",
-      "Connectivity constraints require offline-first capability and reliable sync behavior.",
+      "Over-automation prevented by design: system never submits applications autonomously.",
+      "Data consistency enforced via centralized profile schemas and sync validation checks.",
     ],
 
     impact: [
-      "Transforms larvae counting into a repeatable digital workflow instead of manual estimation.",
-      "Extends beyond counting into biomass insights and farm-level decision support.",
-      "Creates a scalable mobile-first product viable for small and mid-size farms.",
-      "Demonstrates end-to-end product thinking: problem framing, technical feasibility, UX design, pricing, and rollout.",
+      "Streamlines application preparation and sourcing workflow time while preserving strict factual integrity.",
+      "Demonstrates advanced agent orchestration, CLI tooling, and governed automation.",
     ],
 
     tools: [
-      "Computer Vision",
-      "Mobile UX design",
-      "Product architecture planning",
-      "Google Cloud integration",
-      "Flutter & Firebase",
+      "Node.js",
+      "Playwright",
+      "Go",
+      "Claude Code",
+      "Markdown / ATS Engines",
     ],
 
-    links: [
-      { label: "Pitch Deck/ Mockup Design", href: "/reports/aqua-4.0-pitch-deck.pdf" },
-      { label: "Tech + Market Feasibility", href: "/reports/aqua-4.0-feasibility.pdf" },
-      { label: "Revenue Model", href: "/reports/aqua-4.0-revenue-model.pdf" },
-    ],
+    links: [],
 
-    images: [
-      {
-        src: "/projects/aqua.png",
-        alt: "Aqua 4.0 project hero image",
-      },
-    ],
+    images: [],
   },
 
   {
-    slug: "retail-performance-dashboard",
-    title: "Retail Performance & Discount Optimization Dashboard",
+    slug: "bank-telemarketing",
+    title: "Bank Telemarketing Propensity System (ML Delivery & Decision Support)",
     subtitle:
-      "Executive Tableau dashboard analyzing sales, profit leakage, and discount sensitivity across product categories.",
+      "Leakage-free pre-call customer prioritization system delivering ~$190K in campaign cost avoidance and ~49% subscriber capture in the top 10% of contacts.",
     year: "2025",
-    type: "BI / Analytics",
-    tags: ["Tableau", "Business Intelligence", "Pricing Strategy", "Data Storytelling"],
+    type: "ML Delivery",
+    tags: ["CRISP-DM", "XGBoost", "SHAP", "Tableau", "ROI Analysis"],
+    flagship: false,
     featured: true,
-
-    featuredTag: "BI • Executive Dashboard",
+    spotlight: false,
+    featuredTag: "ML Delivery • Decision Support",
     featuredOutcome:
-      "Identified discount-driven profit leakage and category-level pricing risks through executive visual analytics.",
+      "Directed product strategy and full SDLC delivery using CRISP-DM; captured ~49% subscriber uptake in top 10% of contacts with ~$190K campaign cost avoidance.",
 
     problem:
-      "Retail leadership lacked a clear view of how discounting impacted profitability across categories and time. Decisions were made on revenue signals without understanding margin erosion or pricing sensitivity.",
+      "Telemarketing outreach conversion is low and each call incurs real operational cost. The goal was to build a leakage-free propensity scoring model to prioritize high-potential customers before calling, optimizing agent capacity and minimizing campaign cost.",
+
+    metrics: [
+      { label: "Capture @ Top 10%", value: "~49% of subscribers" },
+      { label: "Capture @ Top 20%", value: "~72% of subscribers" },
+      { label: "Cost avoidance", value: "~$190K per campaign" },
+      { label: "CPA reduction", value: "~70% reduction in acquisition cost" },
+      { label: "Model AUC", value: "0.81 (leakage-free pre-call features)" },
+    ],
 
     approach: [
-      "Built a multi-level executive dashboard showing sales, profit, and quantity trends.",
-      "Designed subcategory-level profitability comparison visuals to detect leakage patterns.",
-      "Created discount sensitivity curves to show where profit collapses.",
-      "Added heatmaps to reveal category-specific pricing risks and discount thresholds.",
-      "Focused layout on executive readability rather than analyst complexity.",
+      "Directed product strategy and full SDLC delivery using CRISP-DM framework from problem definition to executive readout.",
+      "Built leakage-free feature sets by strictly excluding post-call duration signals; standardized preprocessing and validation.",
+      "Trained and compared classification models (XGBoost, Logistic Regression, Neural Networks) evaluated on capture@decile and AUC.",
+      "Translated model probabilities into operational decile tiers with clear calling-capacity thresholds.",
+      "Built interactive Tableau dashboards translating model performance and profitability drivers for non-technical stakeholders.",
+    ],
+
+    deployment: [
+      "Designed CRM lead integration pipeline: raw export → scoring model → ranked tiered call list.",
+      "Rollout plan with A/B testing strategy against baseline outreach and evaluation windows.",
+      "Monitoring framework tracking score drift, conversion drift, and threshold recalibration cadence.",
+    ],
+
+    risks: [
+      "Target leakage: call duration artificially inflates model accuracy; explicitly excluded to ensure real-world pre-call validity.",
+      "Class imbalance addressed through probability calibration and decile-based ranking rather than arbitrary cutoff thresholds.",
     ],
 
     impact: [
-      "Revealed categories where discounts drove revenue but destroyed profit.",
-      "Enabled leadership to identify optimal discount ranges.",
-      "Created an executive-ready decision dashboard instead of raw reporting.",
-      "Strengthened storytelling capability around pricing strategy and margin risk.",
+      "Captured ~49% of subscribers in the top 10% of contacts and ~72% in the top 20%, dramatically improving outbound efficiency.",
+      "Delivered estimated ~$190K in campaign cost avoidance through strategic capacity reallocation.",
+      "Enabled executive and operational adoption through visual explainability and documented rollout guidelines.",
     ],
 
-    tools: ["Tableau", "Data Modeling", "Business Analysis", "Dashboard UX"],
+    tools: ["Python", "SQL", "XGBoost", "SHAP", "Tableau"],
 
     links: [
       {
-        label: "Tableau Public",
-        href: "https://public.tableau.com/app/profile/jeevan.deep.borugadda/viz/SalesandCustomerDashboard_17716511596500/SalesDashboard?publish=yes",
+        label: "Full Report (Viz included)",
+        href: "/reports/bank-telemarketing-final-report.pdf",
+      },
+      {
+        label: "GitHub (Dataset and Code)",
+        href: "https://github.com/g1d33p/Capstone-2025",
       },
     ],
 
     images: [
       {
-        src: "/projects/retail-performance-dashboard.png",
-        alt: "Retail performance and discount optimization dashboard",
+        src: "/projects/bankPic.png",
+        alt: "Bank telemarketing project hero image",
       },
     ],
-  },
-
-  {
-    slug: "halloween-demand",
-    title: "Halloween Demand × Weather",
-    subtitle: "Merged hourly weather + demand counts and shipped a BI dashboard.",
-    year: "2025",
-    type: "Analytics",
-    tags: ["BI", "Time Series", "Data Integration"],
-    flagship: false,
-    featured: false,
-    spotlight: false,
-    featuredTag: "Time-series • BI",
-    featuredOutcome:
-      "Integrated multi-source data and shipped a Tableau dashboard for planning.",
-
-    problem: "Without understanding weather effects, planning staffing/supply is guesswork.",
-
-    approach: [
-      "Pulled and cleaned hourly weather data and merged with demand counts.",
-      "Built visuals for time-of-day patterns and weather-driven changes.",
-      "Published interactive dashboard for scenario exploration.",
-    ],
-
-    impact: [
-      "Planning insights tied to measurable weather conditions.",
-      "Clear visuals supporting better staffing and supply decisions.",
-    ],
-
-    tools: ["Python", "APIs", "Tableau"],
-  },
-
-  {
-    slug: "warranty-optimization",
-    title: "Warranty Cost Optimization",
-    subtitle: "Prioritization under constraints with explainability for adoption.",
-    year: "2025",
-    type: "Hackathon",
-    tags: ["Optimization", "Stakeholders", "Explainability"],
-    flagship: false,
-    featured: false,
-    spotlight: false,
-    featuredTag: "Hackathon • Decision Support",
-    featuredOutcome:
-      "Delivered prioritization insights with constraints, explainability, and stakeholder review.",
-
-    problem: "Warranty costs needed reduction while respecting constraints and interpretability.",
-
-    approach: [
-      "Built a prioritization approach aligned to business rules.",
-      "Added explainability to support stakeholder trust.",
-      "Produced a clear recommendation workflow (not just a model).",
-    ],
-
-    impact: [
-      "Actionable recommendations with clear rationale.",
-      "Decision-support framing for real-world rollout.",
-    ],
-
-    tools: ["Python", "Pandas"],
   },
 ];
 
-// Helper functions keep your pages clean:
 export function getAllProjects() {
   return projects;
 }

@@ -88,3 +88,10 @@ yarn-error.log*
 *.mp4
 *.mkv
 *.zip
+
+# Subprojects & standalone repos
+/ajaia-doc-editor
+/ajaia-doc-editor-main
+/career-ops
+/llm-eval-suite
+
