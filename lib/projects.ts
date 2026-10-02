@@ -296,18 +296,21 @@ export const projects: Project[] = [
       "Commercial AI assistants operate as rigid cloud SaaS silos lacking system-level desktop access, leaking sensitive context across networks, incurring high recurring infrastructure costs, and lacking verifiable guardrails when executing consequential actions.",
 
     metrics: [
+      { label: "Token & Cost Governance", value: ">90% reduction via script short-circuiting" },
       { label: "Voice latency", value: "< 600ms streaming (LiveKit + Gemini)" },
       { label: "Idle cost", value: "$0 (local edge execution)" },
-      { label: "Active operating cost", value: "< $10/mo (lightweight routing)" },
+      { label: "Active operating cost", value: "< $25/mo (< $35/mo governed cap)" },
       { label: "Governance", value: "100% HITL on external actions" },
-      { label: "Multi-channel access", value: "Voice hotkey, WhatsApp, CLI" },
+      { label: "Multi-channel access", value: "Global Swift hotkey, WhatsApp, CLI" },
     ],
 
     approach: [
       "Architected a local-first, privacy-preserving agent runtime leveraging LiveKit Agents framework and Google Gemini Live for bidirectional, low-latency audio streaming.",
       "Engineered a native Swift background daemon monitoring global hardware keycodes (Right Command double-tap) to trigger instant push-to-talk voice capture without window focus.",
-      "Built persistent Playwright browser automation with authenticated profiles, enabling headless WhatsApp Web monitoring and messaging via background launchd daemons.",
+      "Built persistent browser automation with authenticated profiles, enabling headless WhatsApp Web monitoring and messaging via background launchd daemons.",
       "Integrated native macOS automation via AppleScript and Python to orchestrate Calendar, Mail, Reminders, and filesystem workflows with automatic classification.",
+      "Engineered multi-tier token governance and cost optimization: decoupled high-frequency scheduled tasks (inbox triage, digest dispatch) to zero-token direct script execution, reserving frontier reasoning LLMs strictly for dynamic multi-turn interactions and cutting projected monthly API spend from >$300/mo to <$25/mo.",
+      "Implemented self-maintaining memory and reflection architecture: automated 2:00 AM routines that review daily cross-channel communications, extract durable facts and commitments into persistent stores, and maintain continuous context across sessions.",
       "Enforced strict Human-in-the-Loop (HITL) safety architecture: zero permanent file deletions, mandatory user confirmation before sending communications, and tool-enforced verification.",
       "Implemented multi-model failover routing: streaming Gemini Live for conversational voice, lightweight Gemini Flash Lite for batch triage, and local Ollama for zero-connectivity offline fallback.",
     ],
